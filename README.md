@@ -1,8 +1,9 @@
 ---
-
 owner:
+
   firstname: "John"
-  lastname: "Leite"
+
+lastname: "Leite"
   hid: "fa18-523-88"
   community: i523
   semester: fa18
