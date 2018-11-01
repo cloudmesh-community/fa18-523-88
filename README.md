@@ -1,11 +1,23 @@
-test font
-
 ---
 owner:
-  firstname: "John "
+  firstname: "John"
   lastname: "Leite"
-  hid: "hid-sp18-414"
-  community: "e516"
-
-alias:
-  firstname: "Joao Paulo"
+  hid: "fa18-523-88"
+  community: "i523"
+  semester: fa18
+technologies:
+  - url: 
+  - url: 
+  - url: 
+  - url: 
+paper:
+  - title: 
+    keyword: Data Extraction, OCR
+    url: 
+    group:
+project: 
+  - title: 
+    keyword: Data Extraction, OCR
+    url: 
+    group:
+    code: TBD
