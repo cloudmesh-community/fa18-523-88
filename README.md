@@ -20,6 +20,3 @@ paper:
     keyword:  data extraction, OCR
     url:
     group:
-
-alias:
-  firstname: "Joao Paulo"
