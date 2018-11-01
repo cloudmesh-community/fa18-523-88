@@ -2,8 +2,24 @@
 owner:
   firstname: "John"
   lastname: "Leite"
-  hid: "hid-sp18-414"
-  community: "e516"
+  hid: "fa18-i523-88"
+  community: "i523"
+  semester: fa18
+technologies:
+  - url:
+  - url:
+  - url:
+  - url:
+paper:
+  - title:
+    keyword: data extraction, OCR
+    url:
+    group:
+ project:
+   -title:
+    keyword:  data extraction, OCR
+    url:
+    group:
 
 alias:
   firstname: "Joao Paulo"
