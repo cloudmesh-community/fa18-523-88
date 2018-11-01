@@ -1,23 +1,9 @@
 ---
 owner:
-  firstname: "John"
+  firstname: "John "
   lastname: "Leite"
-  hid: "fa18-523-88"
-  community: i523
-  semester: fa18
+  hid: "hid-sp18-414"
+  community: "e516"
 
-technologies:
-  - url: 
-  - url: 
-  - url: 
-  - url: 
-
-paper:
-  - title: Working Title: "Data Extraction"
-    keyword: data extraction, OCR
-    url: 
-
-project:
-  - title: Working Title: "Data Extraction"
-    keyword: data extraction, OCR
-    url: 
+alias:
+  firstname: "Joao Paulo"
