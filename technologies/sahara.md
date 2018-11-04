@@ -29,6 +29,8 @@ with a variety of OpenStack services. Some of the main services that Sahara
 is able to communicate with are Horizon(Dashboards), Keystone(Identification), 
 Nova(Computationalprovisioning), Glance(VM Image storage) and Swift(Object Storage).
 
+There are two user cases which can be addressed and summarized via a generic workflow;
+cluster provisioning and analytics as a service.
 
 
 
