@@ -27,7 +27,7 @@ to note that Sahara enables users to scale existing clusters by
 adding/removing nodes on demand. The Sahara product is able to communicate 
 with a variety of OpenStack services. Some of the main services that Sahara 
 is able to communicate with are Horizon(Dashboards), Keystone(Identification), 
-Nova(Computational provisioning), Glance(VM Image storage) and Swift(Object Storage).
+Nova(Computational provisioning), Glance(VM Image storage) and Swift(Object Storage)[@www-fa18-523-88-openstack-sahara].
 
 There are two user cases which can be addressed and summarized via a generic workflow;
 cluster provisioning and analytics as a service.
