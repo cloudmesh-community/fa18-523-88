@@ -24,12 +24,10 @@ The rationale behind Sahara is to enable users to easily manage and
 deploy various data processing frameworks with relative ease. While 
 users can quickly deploy a cluster within minutes, it is also important 
 to note that Sahara enables users to scale existing clusters by
-adding/removing nodes on demand. 
-
-The Sahara product is able to communicate with a variety of OpenStack 
-services. Some of the main services that Sahara is able to communicate 
-with are Horizon(Dashboards), Keystone(Identification), Nova(Computational
-provisioning), Glance(VM Image storage) and Swift(Object Storage).
+adding/removing nodes on demand. The Sahara product is able to communicate 
+with a variety of OpenStack services. Some of the main services that Sahara 
+is able to communicate with are Horizon(Dashboards), Keystone(Identification), 
+Nova(Computationalprovisioning), Glance(VM Image storage) and Swift(Object Storage).
 
 
 
