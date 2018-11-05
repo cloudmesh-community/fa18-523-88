@@ -20,22 +20,32 @@ computer power from a general purpose OpenStack Iaas
 Cloud [@www-Sahara].  Sahara is managed via a REST API with a User
 Interface available as part of OpenStack Dashboard.
 
-The Sahara project is a joint collaboration between Hortonworks, Red hat 
-and Mirantis. The reason the Sahara project was persued by these entities 
+The Sahara project is a joint collaboration between Hortonworks, Red Hat 
+and Mirantis. The reason the Sahara project was pursued by these entities 
 was based on the need for agile access to big data. By sitting on top of the 
 OpenStack Cloud management platform, Sahara is able to provide managed 
 scalability for the various data processing frameworks. In alignment with 
-scalability, the elasticity around the clusters(Growing or Shrinking resources as required)
-is another major advantage when using Sahara to manage and deploy clusters. 
-While users can quickly deploy a cluster within minutes, it is also important 
-to note that Sahara enables users to scale existing clusters by
-adding/removing nodes on demand. The Sahara product is able to communicate 
-with a variety of OpenStack services. Some of the main services that Sahara 
-is able to communicate with are Horizon(Dashboards), Keystone(Identification), 
-Nova(Computational provisioning), Glance(VM Image storage) and Swift(Object Storage)[@www-fa18-523-88-openstack-sahara].
+scalability, the elasticity around the clusters(growing or shrinking resources 
+as required) is another major advantage when using Sahara to manage and 
+deploy clusters [www-fa18-523-88-openstack-sahara-essentials].
+The Sahara product is able to communicate with a variety of OpenStack services. 
+Some of the main services that Sahara is able to communicate with are 
+Horizon(Dashboards), Keystone(Identification), Nova(Computational provisioning), 
+Glance(VM Image storage) and Swift(Object Storage) [@www-fa18-523-88-openstack-sahara].
+Thru this communcation, Sahara is able to provide some unique characteristics such as:
 
-There are two user cases which can be addressed and summarized via a generic workflow;
-cluster provisioning and analytics as a service.
-
-
+Rapid Provisioning: Deployment of clusters are faciliated by the GUI interface or the 
+command line interface.
+Centralized Managment: Monitoring and controlling clusters from a single management
+interface.
+Cluster Management: Sahara templating mechanism allows for the starting, stopping, resizing,
+scaling and shaping of the cluster ecosystem. This templating feature allows for easily repeatable 
+manapulation and creation of a Hadoop/Spark cluster node while elimating the need to provide any
+detailed cluster node setup parameters.
+Workload Management: Defining the Elastic Data Processing(the execution and queueing 
+of jobs) and howthey should work within the cluster. By defining the type of data 
+processing jobs that should run across the cluster, Sahara can enable the provisioning
+of new clusters on-demand to process these jobs. When said jobs are complete, Sahara can manage
+the dismantling of the cluster.
+[www-fa18-523-88-openstack-sahara-essentials]
 
