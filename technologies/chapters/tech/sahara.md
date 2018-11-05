@@ -34,21 +34,21 @@ Horizon(Dashboards), Keystone(Identification), Nova(Computational provisioning),
 Glance(VM Image storage) and Swift(Object Storage) [@www-fa18-523-88-openstack-sahara].
 Thru this communcation, Sahara is able to provide some unique characteristics such as:
 
-Rapid Provisioning: Deployment of clusters are faciliated by the GUI interface or the 
-command line interface.
+_**Rapid Provisioning:**_ Deployment of clusters are faciliated by the GUI interface or the 
+command line interface [www-fa18-523-88-openstack-sahara-essentials].
 
+_**Centralized Managment:**_ Monitoring and controlling clusters from a single management
+interface [www-fa18-523-88-openstack-sahara-essentials].
 
-Centralized Managment: Monitoring and controlling clusters from a single management
-interface.
-Cluster Management: Sahara templating mechanism allows for the starting, stopping, resizing,
+_**Cluster Management:**_ Sahara templating mechanism allows for the starting, stopping, resizing,
 scaling and shaping of the cluster ecosystem. This templating feature allows for easily repeatable 
 manapulation and creation of a Hadoop/Spark cluster node while elimating the need to provide any
-detailed cluster node setup parameters.
+detailed cluster node setup parameters [www-fa18-523-88-openstack-sahara-essentials].
 
-Workload Management: Defining the Elastic Data Processing(the execution and queueing 
+_**Workload Management:**_ Defining the Elastic Data Processing(the execution and queueing 
 of jobs) and howthey should work within the cluster. By defining the type of data 
 processing jobs that should run across the cluster, Sahara can enable the provisioning
 of new clusters on-demand to process these jobs. When said jobs are complete, Sahara can manage
-the dismantling of the cluster.
-[www-fa18-523-88-openstack-sahara-essentials]
+the dismantling of the cluster [www-fa18-523-88-openstack-sahara-essentials].
+
 
