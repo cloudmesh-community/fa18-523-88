@@ -20,9 +20,14 @@ computer power from a general purpose OpenStack Iaas
 Cloud [@www-Sahara].  Sahara is managed via a REST API with a User
 Interface available as part of OpenStack Dashboard.
 
-The rationale behind Sahara is to enable users to easily manage and 
-deploy various data processing frameworks with relative ease. While 
-users can quickly deploy a cluster within minutes, it is also important 
+The Sahara project is a joint collaboration between Hortonworks, Red hat 
+and Mirantis. The reason the Sahara project was persued by these entities 
+was based on the need for agile access to big data. By sitting on top of the 
+OpenStack Cloud management platform, Sahara is able to provide managed 
+scalability for the various data processing frameworks. In alignment with 
+scalability, the elasticity around the clusters(Growing or Shrinking resources as required)
+is another major advantage when using Sahara to manage and deploy clusters. 
+While users can quickly deploy a cluster within minutes, it is also important 
 to note that Sahara enables users to scale existing clusters by
 adding/removing nodes on demand. The Sahara product is able to communicate 
 with a variety of OpenStack services. Some of the main services that Sahara 
