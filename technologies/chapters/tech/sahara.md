@@ -32,11 +32,11 @@ deploy clusters [www-fa18-523-88-openstack-sahara-essentials].
 The Sahara product is able to communicate with a variety of OpenStack services. 
 _Some of the main services that Sahara is able to communicate with are:_
 
-*Horizon(Dashboards)
-*Keystone(Identification)
-*Nova(Computational provisioning), 
-*Glance(VM Image storage)
-*Swift(Object Storage) [@www-fa18-523-88-openstack-sahara].
+* Horizon(Dashboards)
+* Keystone(Identification)
+* Nova(Computational provisioning), 
+* Glance(VM Image storage)
+* Swift(Object Storage) [@www-fa18-523-88-openstack-sahara].
 
 _Thru this communcation, Sahara is able to provide some unique characteristics such as:_
 
