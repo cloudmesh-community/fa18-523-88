@@ -36,12 +36,15 @@ Thru this communcation, Sahara is able to provide some unique characteristics su
 
 Rapid Provisioning: Deployment of clusters are faciliated by the GUI interface or the 
 command line interface.
+
+
 Centralized Managment: Monitoring and controlling clusters from a single management
 interface.
 Cluster Management: Sahara templating mechanism allows for the starting, stopping, resizing,
 scaling and shaping of the cluster ecosystem. This templating feature allows for easily repeatable 
 manapulation and creation of a Hadoop/Spark cluster node while elimating the need to provide any
 detailed cluster node setup parameters.
+
 Workload Management: Defining the Elastic Data Processing(the execution and queueing 
 of jobs) and howthey should work within the cluster. By defining the type of data 
 processing jobs that should run across the cluster, Sahara can enable the provisioning
