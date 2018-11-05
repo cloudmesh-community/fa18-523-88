@@ -28,11 +28,17 @@ scalability for the various data processing frameworks. In alignment with
 scalability, the elasticity around the clusters(growing or shrinking resources 
 as required) is another major advantage when using Sahara to manage and 
 deploy clusters [www-fa18-523-88-openstack-sahara-essentials].
+
 The Sahara product is able to communicate with a variety of OpenStack services. 
-Some of the main services that Sahara is able to communicate with are 
-Horizon(Dashboards), Keystone(Identification), Nova(Computational provisioning), 
-Glance(VM Image storage) and Swift(Object Storage) [@www-fa18-523-88-openstack-sahara].
-Thru this communcation, Sahara is able to provide some unique characteristics such as:
+_Some of the main services that Sahara is able to communicate with are:_
+
+*Horizon(Dashboards)
+*Keystone(Identification)
+*Nova(Computational provisioning), 
+*Glance(VM Image storage)
+*Swift(Object Storage) [@www-fa18-523-88-openstack-sahara].
+
+_Thru this communcation, Sahara is able to provide some unique characteristics such as:_
 
 _**Rapid Provisioning:**_ Deployment of clusters are faciliated by the GUI interface or the 
 command line interface [www-fa18-523-88-openstack-sahara-essentials].
