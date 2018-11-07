@@ -13,11 +13,11 @@ technologies:
 paper:
   - title:
     keyword: Data Extraction, OCR
-    url: https://github.com/cloudmesh-community/fa18-523-88/tree/master/paper
+    url: https://github.com/cloudmesh-community/fa18-523-88/blob/master/paper/paper.md
     group: fa18-523-88
 project: 
   - title: 
     keyword: Data Extraction, OCR
-    url: https://github.com/cloudmesh-community/fa18-523-88/tree/master/project-code
+    url: 
     group: fa18-523-88
-    code: TBD
+    code: https://github.com/cloudmesh-community/fa18-523-88/tree/master/project-code
