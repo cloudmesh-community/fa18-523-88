@@ -18,6 +18,6 @@ paper:
 project: 
   - title: 
     keyword: Data Extraction, OCR
-    url: 
+    url: https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/report.md
     group: fa18-523-88
     code: https://github.com/cloudmesh-community/fa18-523-88/tree/master/project-code
