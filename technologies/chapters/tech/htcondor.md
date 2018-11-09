@@ -15,7 +15,8 @@ the department focuses on High Throughput Computing and was successful in
 deploying a production system internally for the department over 15 years 
 ago. It has since grown to be used by organizations spanning industries, 
 governemtn departments and unversities across the world, with installations 
-leveraging a couple workstations all the way up to thousands of workstations.
+leveraging a couple workstations all the way up to thousands of 
+workstations [@www-fa18-523-88-htcondor].
     
 HTCondor is a specialized workload management system for
 compute-intensive jobs.  HTCondor provides various features like (a) job
@@ -44,4 +45,4 @@ if one does not exist, HTCondor will transfer any data files needed for
 the job on behalf of the user. Alternatively, HTCondor may also be able 
 to redirect all I/O requests submitted by the job back to the submitting 
 machine. This allows HTCondor to harnesss all of the computational power
-within an organization's domain to perform process intensive jobs.
+within an organization's domain to perform process intensive jobs [@www-fa18-523-88-htcondor].
