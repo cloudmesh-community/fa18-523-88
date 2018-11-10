@@ -37,16 +37,18 @@ Salesforce.
 
 The key benefits associated with Jiiterbit are:
 
-Availability on-premise or in the cloud.
-Map and deploy with point and click configuration
-Scalability is simple and cost effective
-Can be managed by non-technical employees
+* Availability on-premise or in the cloud.
+* Map and deploy with point and click configuration
+* Scalability is simple and cost effective
+* Can be managed by non-technical employees
 
 While Jitterbit can provide almost limitless use-cases throughout an 
 organzation, here are some of the key applications:
-**Appliance Integration:** 
 * _Integrate databases and core line of business applications_
 * _Automate order processing across line of business systems_
 * _Update applications with transactional data_ 
+* _Integrate cloud applications with back-end systems_
+* _Consolidate disparate data from multiple locations_
+* _Update data across multiple line of business systems_ 
 
 
