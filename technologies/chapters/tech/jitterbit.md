@@ -35,5 +35,16 @@ data migration tool that enables Salesforce administrators automated
 import and export of data between flat files, databases and
 Salesforce.
 
+The key benefits associated with Jiiterbit are:
+
+Availability on-premise or in the cloud.
+Map and deploy with point and click configuration
+Scalability is simple and cost effective
+Can be managed by non-technical employees
+
+While Jitterbit can provide almost limitless use-cases throughout an 
+organzation, here are some of the key applications:
+_**Appliance Integration:**_ Monitoring and controlling clusters from a single management
+
 
 
