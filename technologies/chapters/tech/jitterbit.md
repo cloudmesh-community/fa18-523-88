@@ -44,7 +44,9 @@ Can be managed by non-technical employees
 
 While Jitterbit can provide almost limitless use-cases throughout an 
 organzation, here are some of the key applications:
-_**Appliance Integration:**_ Monitoring and controlling clusters from a single management
-
+**Appliance Integration:** 
+*_Integrate databases and core line of business applications_
+*_Automate order processing across line of business systems_
+*_Update applications with transactional data_ 
 
 
