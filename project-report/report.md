@@ -1,12 +1,9 @@
-# TBD
-
-:o: wrong format
-# OCR Extraction Implementation with Tesseract :hand:
+# OCR Extraction Implementation with Tesseract :hand: fa18-523-88
 
 | Joao Paulo Leite
 | jleite@iu.edu
 | Indiana University
-| hid: 
+| hid: fa18-523-88
 | github: [:cloud:]()
 | code: [:cloud:]()
 
@@ -40,7 +37,8 @@ provided by OCR engines allows for this key data to be used for
 downstream processes and reporting. Documents fall into three categories: 
 structured documents, semi-structured documents and unstructured documents. 
 
-> Gartner, a leading technology analysis firm, has stated the following, 
+Gartner, a leading technology analysis firm, has stated the following:
+
 > “…the amount of data stored in companies will increase by 800 percent by 
 > 2018, 80 percent of which would include unstructured data that are harder 
 > to tame and manage. The biggest challenges for companies will include: 
@@ -79,6 +77,24 @@ a specific format) and the scoring of each candidate based on context around sai
 candidate. At the end of this process, the candidate which obtained the highest 
 score will be selected. 
 
+For the extraction engine, there are 8 distinct phases: 
+
+1. Image Thresholding
+
+2. OCR Process
+
+3. Transform HOCR Data
+
+4. Define Candidates
+
+5. Set Context
+
+6. Group Context
+
+7. Score Context
+
+8. Output Results
+
 ### Image Thresholding
 
 Before submitting the image into Tesseract, image clean
@@ -89,42 +105,434 @@ image[@hid-sp18-414-www-imagethresholding].
 
 Standarizing Image DPI to 300 DPI:
 
-> def set_dpi(path):
->
->   image = IMG.open(path)
->   len_x, wid_y = image.size
->   factor = max(1, int(1800 / len_x))
->   size = factor * len_x, factor * wid_y
->   image_resized = image.resize(size, IMG.ANTIALIAS)
->   temp_f = tempfile.NamedTemporaryFile()
->   temp_fn = temp_f.name
->   image_resized.save(temp_fn, dpi=(300, 300))
->
->   return temp_fn
+```
+ def set_dpi(path):
 
+   image = IMG.open(path)
+   len_x, wid_y = image.size
+   factor = max(1, int(1800 / len_x))
+   size = factor * len_x, factor * wid_y
+   image_resized = image.resize(size, IMG.ANTIALIAS)
+   temp_f = tempfile.NamedTemporaryFile()
+   temp_fn = temp_f.name
+   image_resized.save(temp_fn, dpi=(300, 300))
+
+   return temp_fn
+```
 
 Converting to Bitonal Image via Adaptive Thresholding:
 
-> def remove_noise(name):
->   
->   image = cv2.imread(name, 0)
->   filtered = cv2.adaptiveThreshold(image.astype(np.uint8), 255, 
->   cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 41, 3)
->   core = np.ones((1, 1), np.uint8)
->   opening = cv2.morphologyEx(filtered, cv2.MORPH_OPEN, core)
->   closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, core)
->   image = smooth(image)
->   original_image = cv2.bitwise_or(image, closing)
->   
->   return original_image
-
+```
+ def remove_noise(name):
+   
+   image = cv2.imread(name, 0)
+   filtered = cv2.adaptiveThreshold(image.astype(np.uint8), 255, 
+   cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 41, 3)
+   core = np.ones((1, 1), np.uint8)
+   opening = cv2.morphologyEx(filtered, cv2.MORPH_OPEN, core)
+   closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, core)
+   image = smooth(image)
+   original_image = cv2.bitwise_or(image, closing)
+   
+   return original_image
+```
 Smoothing Image:
 
-> def smooth(image):
->
->   ret1, th1 = cv2.threshold(image, BINARY_THREHOLD, 255, cv2.THRESH_BINARY)
->   ret2, th2 = cv2.threshold(th1, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
->   blur = cv2.GaussianBlur(th2, (1, 1), 0)
->   ret3, th3 = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
->   
->   return th3
+```
+ def smooth(image):
+
+   ret1, th1 = cv2.threshold(image, BINARY_THREHOLD, 255, cv2.THRESH_BINARY)
+   ret2, th2 = cv2.threshold(th1, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+   blur = cv2.GaussianBlur(th2, (1, 1), 0)
+   ret3, th3 = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+   
+   return th3
+```
+
+### OCR Process
+
+Google's Tesseract OCR engine is an open source engine that has the ability to
+output HOCR. HOCR is an open standard of data representation for
+formatted text obtained from an OCR engine. This standard includes 
+text, style, layout information, recognition confidence and other info
+in a XML structure. 
+
+Create HOCR data:
+```
+ def Run(self):
+   
+   DATA = pytesseract.image_to_pdf_or_hocr(image, lang=None, config='hocr', nice=0, extension='hocr')
+```
+
+
+### Transform HOCR Data
+
+Once the HOCR results are generated, we must transform the results
+into useable data for our extraction process. The first step is to target
+the ocrx_word data from the results and parser it into separate words.
+After this initial parsing is complete, we separate each individual data
+point within a dictionary object with the values: value, confidence, 
+left, top, right and bottom.
+
+Parsing HOCR results with Beautiful Soup
+
+```
+ def Run(self):
+   soup = bs4.BeautifulSoup(DATA, 'html.parser')
+   words = soup.find_all('span', class_='ocrx_word')
+```
+
+Creating word data structure:
+
+```
+ def transform_hocr(self, words):
+
+   for x in range(len(words)):
+     
+	 word[int(words[x]['id'].split('_')[2])] = {}
+     word[int(words[x]['id'].split('_')[2])]['Value'] = words[x].get_text()
+     word[int(words[x]['id'].split('_')[2])]['Confidence'] = words[x]['title'].split(';')[1].split(' ')[2]
+     word[int(words[x]['id'].split('_')[2])]['Left'] = words[x]['title'].split(';')[0].split(' ')[1]
+     word[int(words[x]['id'].split('_')[2])]['Top'] = words[x]['title'].split(';')[0].split(' ')[2]
+     word[int(words[x]['id'].split('_')[2])]['Right'] = words[x]['title'].split(';')[0].split(' ')[3]
+     word[int(words[x]['id'].split('_')[2])]['Bottom'] = words[x]['title'].split(';')[0].split(' ')[4]
+```
+
+### Define Candidates
+
+After transforming the HOCR results, we use the generated word dictionary 
+to find values that match the defined regular expression that was provided
+by the user. We store all candidates which match the regular expression are 
+stored within the candidates dictionary object with the values: value, confidence, 
+left, top, right and bottom.
+
+Finding candidates:
+
+```
+ def find_candidates(self, RE_ATT):
+   y = 1
+   for z in RE_ATT:
+
+     for x in range(len(word)):
+
+       m = re.match(r'' + z + '', word[x + 1]['Value'], )
+
+       if m:
+		
+		candidates[y] = {}
+		candidates[y]['Value'] = word[x + 1]['Value']
+		candidates[y]['Confidence'] = word[x + 1]['Confidence']
+		candidates[y]['Left'] = word[x + 1]['Left']
+		candidates[y]['Top'] = word[x + 1]['Top']
+		candidates[y]['Right'] = word[x + 1]['Right']
+		candidates[y]['Bottom'] = word[x + 1]['Bottom']
+		y = y + 1
+```
+
+### Set Context
+
+
+Using the location input define by the user, we will set the context of each
+candidate based on the proximity(top, bottom, left and right) in pixels.
+Each word which falls within the proper proximity is stored in the context
+dictionary with the values: value, candidate ,word number, confidence,
+left, top, right, bottom, line number and same line as candidate.
+
+
+```
+ def set_context(self, candidates, word):
+
+   line = 1
+   z = 1
+
+   for x in range(len(candidates)):
+     
+	 for y in range(len(word)):
+	 
+	   if (int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 100) and (int(word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 20) and \
+		(int(word[y + 1]['Right']) > int(candidates[x + 1]['Left']) - 700) and (int(word[y + 1]['Right']) < int(candidates[x + 1]['Left']) + 20):
+
+		  context[z] = {}
+		  context[z]['Value'] = word[y + 1]['Value']
+		  context[z]['Candidates'] = candidates[x + 1]['Value']
+		  context[z]['Word'] = str(y + 1)
+		  context[z]['Confidence'] = word[y + 1]['Confidence']
+		  context[z]['Left'] = word[y + 1]['Left']
+		  context[z]['Top'] = word[y + 1]['Top']
+		  context[z]['Right'] = word[y + 1]['Right']
+		  context[z]['Bottom'] = word[y + 1]['Bottom']
+
+	   if z == 1:
+		  context[z]['Line'] = line
+	   elif context[z - 1]['Bottom'] == word[y + 1]['Bottom']:
+		  context[z]['Line'] = line
+	   else:
+		  line = line + 1
+		  context[z]['Line'] = line
+
+	   if int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 15 and int(word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 15:
+		  context[z]['SameLine'] = "1"
+	   else:
+		  context[z]['SameLine'] = "0"
+
+	   z = z + 1
+```
+
+### Group Context
+
+Once the context for each candidate has been
+defined, we will group the context based on proximity
+If mutliple context words are in sequence, we wil group 
+those so that they are arranged as a phrase.
+
+```
+ def define_groupcontext(self, context):
+   z = 1
+   for x in range(len(context)):
+
+     if x == 0:
+	   
+	   groupcontext[z] = {}
+	   groupcontext[z]['Value'] = context[x + 1]['Value']
+	   groupcontext[z]['Word'] = context[x + 1]['Word']
+	   groupcontext[z]['Candidates'] = context[x + 1]['Candidates']
+	   groupcontext[z]['Weight'] = '0'
+	   groupcontext[z]['Confidence'] = context[x + 1]['Confidence']
+	   groupcontext[z]['Left'] = context[x + 1]['Left']
+	   groupcontext[z]['Top'] = context[x + 1]['Top']
+	   groupcontext[z]['Right'] = context[x + 1]['Right']
+	   groupcontext[z]['Bottom'] = context[x + 1]['Bottom']
+	   groupcontext[z]['SameLine'] = context[x + 1]['SameLine']
+
+	 elif int(groupcontext[z]['Word']) + 1 == int(context[x + 1]['Word']):
+
+	   groupcontext[z]['Value'] = groupcontext[z]['Value'] + ' ' + context[x + 1]['Value']
+	   groupcontext[z]['Word'] = context[x + 1]['Word']
+	   groupcontext[z]['Confidence'] = context[x + 1]['Confidence']
+	   groupcontext[z]['Top'] = context[x + 1]['Top']
+	   groupcontext[z]['Right'] = context[x + 1]['Right']
+	   groupcontext[z]['Bottom'] = context[x + 1]['Bottom']
+
+	 else:
+	
+	   z = z + 1
+	   groupcontext[z] = {}
+	   groupcontext[z]['Value'] = context[x + 1]['Value']
+	   groupcontext[z]['Word'] = context[x + 1]['Word']
+	   groupcontext[z]['Candidates'] = context[x + 1]['Candidates']
+	   groupcontext[z]['Weight'] = '0'
+	   groupcontext[z]['Confidence'] = context[x + 1]['Confidence']
+	   groupcontext[z]['Left'] = context[x + 1]['Left']
+	   groupcontext[z]['Top'] = context[x + 1]['Top']
+	   groupcontext[z]['Right'] = context[x + 1]['Right']
+	   groupcontext[z]['Bottom'] = context[x + 1]['Bottom']
+	   groupcontext[z]['SameLine'] = context[x + 1]['SameLine']
+```
+
+### Score Context
+
+After grouping the context, using the context values provided by
+the user, we will score each grouping based on how strongly it matches 
+the context values. We utilize a fuzzy algorithm that allows us to accommodate
+for any OCR errors or misspellings. The weight given to each context word is also
+judged based on the weighted value provided by the user. This gives the ability for
+the user to define which context words should carry more weight in the scoring
+algorithm. For grouped context that fall within the same line as the candidate, the user
+can define a value to be added to the overall weight. 
+
+Score Context:
+
+```
+ def weightcontext(self, KW_ATT):
+
+   for z, value in KW_ATT.items():
+
+	  for x in range(len(groupcontext)):
+
+	     groupcontext[x + 1]['Weight'] = 0
+
+		 if int(groupcontext[x + 1]['Weight']) < fuzz.WRatio(groupcontext[x + 1]['Value'], z):
+
+		    groupcontext[x + 1]['Weight'] = int(fuzz.WRatio(groupcontext[x + 1]['Value'], z)) * int(value[0]) / 100
+
+		 if groupcontext[x + 1]['SameLine'] == '1':
+		  
+		    groupcontext[x + 1]['Weight'] = groupcontext[x + 1]['Weight'] + int(value[5])
+```
+
+### Output Result
+
+Outputting a resulting text file with the winning candidate as well as
+the entire results array. The text file name will be the same as the input 
+image file.
+
+```
+ def outputresults(self, groupcontext,fp):
+   for x in range(len(groupcontext)):
+
+	 if groupcontext[x + 1]['Candidates'] in results:
+
+	   if int(results[groupcontext[x + 1]['Candidates']]) < int(groupcontext[x + 1]['Weight']):
+	     
+		 results[groupcontext[x + 1]['Candidates']] = groupcontext[x + 1]['Weight']
+
+	   else:
+
+	     results[groupcontext[x + 1]['Candidates']] = groupcontext[x + 1]['Weight']
+
+
+   if(len(results.keys()) == 0):
+
+     f = open(fp + '.txt', 'w')
+	 f.write("Could not find any valid candidates")
+	 f.close()
+	 
+   else:
+
+     sorted_by_value = sorted(results.items(), key=lambda kv: kv[1], reverse=True)
+	 f = open(fp +'.txt', 'w')
+	 f.write("WINNING CANDIDATE (CANDIDATE , WEIGHT): " + str(sorted_by_value[0]) + "\n")
+	 f.write("ALL CANDIDATES: " + str(sorted_by_value))
+	 f.close()
+```
+
+## Example
+
+## Tools and Technology
+
+The tools and technology deployed for this project are going to be covered in 
+this section.
+
+### Terresact
+
+Python-tesseract is an optical character recognition (OCR) tool for python.
+That is, it will recognize and “read” the text embedded in images. Python-tesseract 
+is a wrapper for Google’s Tesseract-OCR Engine[@hid-sp18-414-www-pytesseract].
+
+Code Example:
+```
+ import pytesseract
+   
+   hocr = pytesseract.image_to_pdf_or_hocr('test.png', extension='hocr')
+```
+
+Install:
+```
+pip install pytesseract
+```
+
+### Beautiful Soup
+
+Beautiful Soup is a library that makes it easy to scrape information from web pages.
+It sits atop an HTML or XML parser, providing Pythonic idioms for iterating, searching,
+and modifying the parse tree[@hid-sp18-414-www-beautifulsoup].
+
+Code Example:
+```
+ import bs4
+   
+   soup = bs4.BeautifulSoup(DATA, 'html.parser')
+   words = soup.find_all('span', class_='ocrx_word')
+```
+
+Install:
+```
+pip install beautifulsoup4
+```
+
+### FuzzyWuzzy
+
+Fuzzy Wuzzy provides fuzzy string matching in an easy to use package.
+It uses Levenshtein Distance to calculate the differences between sequences
+in a simple-to-use package[@hid-sp18-414-www-fuzzywuzzy].
+
+Code Example:
+```
+ from fuzzywuzzy import fuzz
+
+   fuzz.ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear")
+
+Output:91
+```
+
+Install:
+```
+pip install fuzzywuzzy
+```
+
+### Python
+
+Python is the high-level programming language that was used to develop
+this project.
+
+### Numpy
+
+NumPy is the fundamental package for scientific computing with Python[#hid-sp18-414-www-NumPy].
+
+Code Example:
+```
+ import numpy as np
+   core = np.ones((1, 1), np.uint8)
+```
+
+Install:
+```
+pip install Numpy
+```
+
+### OpenCV
+
+OpenCV (Open Source Computer Vision Library) is released under a BSD license and hence it’s
+free for both academic and commercial use. It has C++, Python and Java interfaces and
+supports Windows, Linux, Mac OS, iOS and Android. OpenCV was designed for computational 
+efficiency and with a strong focus on real-time applications[@hid-sp18-414-www-OpenCV].
+
+Code Example:
+```
+ import cv2
+   img = cv2.imread('messi5.jpg',0)
+```
+
+Install:
+```
+pip install opencv-python
+```
+
+### Python Imaging Library
+
+The Python Imaging Library adds image processing capabilities 
+to your Python interpreter. This library provides extensive file 
+format support, an efficient internal representation, and fairly 
+powerful image processing capabilities[@hid-sp18-414-www-Pillow].
+
+Code Example:
+```
+ from PIL import Image as IMG
+   image = IMG.open(path)
+```
+
+Install:
+```
+pip install Pillow
+```
+
+### Tkinter
+
+Tkinter is Python's a standard GUI (Graphical User Interface) package.
+It is a thin object-oriented layer on top of Tcl/Tk[@hid-sp18-414-www-tkInter].
+
+Install:
+```
+pip install Tkinter
+```
+
+## Conclusion
+
+
+
+## Acknowledgement
+
+The authors would like to thank the Big Data Applications and 
+Analytics (I-523) course teaching staff, mainly professor 
+Gregor von Laszewski for their support and guidance during 
+this project.
