@@ -4,7 +4,7 @@
 | jleite@iu.edu
 | Indiana University
 | hid: fa18-523-88
-| github: [:cloud:]()
+| github: [:cloud:](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/report.md)
 | code: [:cloud:]()
 
 ---
