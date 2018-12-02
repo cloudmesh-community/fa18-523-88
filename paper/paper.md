@@ -64,7 +64,7 @@ that are on the RGB scale, this thresholding can be set at a fixed level so that
 pixels can be dropped as white while truly dark colored pixels are converted to black. In the case 
 of grayscaled images, the same threshold can be set with the difference being the level of greyness
 presented in each pixel. Once this proccess is complete, the newly created black and white images will 
-be used for the remainder of the process moving forward[@hid-sp18-414-www-imagethresholding].
+be used for the remainder of the process moving forward[@hid-fa18-88-www-imagethresholding].
 
 ### Character Segmentation
 
@@ -78,7 +78,7 @@ font fonts are the main culprits behind fragmented or touching characters, while
 handwriting and dots can also contribute to challenges when attempting to segment characters. To alleviate 
 this issue, before the characters are presented to the feature extraction phase in the process, the 
 characters are run thru the preprocessing phase in an attempt to correct some of the issues that may 
-have manifested themselves[@hid-sp18-414-www-eikvilocr].
+have manifested themselves[@hid-fa18-88-www-eikvilocr].
 
 ### Character Preprocessing
 
@@ -91,7 +91,7 @@ To combat these defects, a preprocessor is employed to attempt to correct these 
 technique is called smoothing. Smoothing serves to both fill in gaps within a character (fragmentation 
 correction) as well as thin the width of lines within a character (touching correction). When properly 
 applied, smoothing is successful in filling in pits within a character and removing bumps from a character, 
-which will increase the likelihood of recognition in the following steps[@hid-sp18-414-www-eikvilocr]. 
+which will increase the likelihood of recognition in the following steps[@hid-fa18-88-www-eikvilocr]. 
 Removing noise and normalization of the character are also considered tasks, which will be resolved by the 
 preprocessor. The removal of specks, thin lines and other inconsistency are resolved thru the analysis of the 
 height, size and density of a grouping of pixels. If the characteristics of a particular grouping is not 
@@ -109,7 +109,7 @@ the simplicity does not afford any flexibility around noise or font variations, 
 
 Because of rigidity of the template matching technique, feature based techniques were developed to extract 
 significant features from a character. Some common feature extraction methods are zoning, distance profiling 
-and directional distribution analysis[@hid-sp18-414-www-featureextraction].
+and directional distribution analysis[@hid-fa18-88-www-featureextraction].
 
 #### Zoning
 Zoning is a technique that frames the character in a set of overlapping or non-overlapping zones. The pixel 
@@ -136,7 +136,7 @@ Neighbor (k-NN) provides a method to classify characters based on the closest fe
 Typically regarded as a simple machine learning algorithm, k-NN calculates the Euclidean distance between features 
 value of the inputted character against the features value of the characters provided by the training examples. Once 
 the distance is calculated, the results are arranged in order and the input character is assigned the character class 
-that corresponds to the majority of its nearest neighbors[@hid-sp18-414-www-featureextraction].
+that corresponds to the majority of its nearest neighbors[@hid-fa18-88-www-featureextraction].
 
 
 ### Post Processing
@@ -158,13 +158,13 @@ will be based on the systems understanding of the underlying language for which 
 One form to evaluate the accuracy is to use the syntax of the language and rule out specific combinations of characters appearing in 
 sequence. As an example, if the recognition for the three-letter word "cut" came back as "cwt", the system would understand that the 
 syntax of a C followed by a W and a W followed by a T is highly improbable in the English language and flag this a potential error
-[@hid-sp18-414-www-eikvilocr]. 
+[@hid-fa18-88-www-eikvilocr]. 
 
 #### Dictionaries
 Another evaluation method that can assist with the accuracy is a dictionary lookup. Following the logic of the example above, after 
 understanding that we have mistakenly extracted "cwt", we can apply dictionaries to assist in correcting the error that was 
 caused by the individual character recognition engine. Because "w" and "u" share some common characteristics, the original 
 classification can be utilized to not only provide the highest matching character but also consider which matching characters 
-provides the highest probability of forming a word that matches an entry in the dictionary[@hid-sp18-414-www-eikvilocr]. 
+provides the highest probability of forming a word that matches an entry in the dictionary[@hid-fa18-88-www-eikvilocr]. 
 
 ### Conclusion
