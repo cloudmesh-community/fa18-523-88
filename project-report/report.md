@@ -471,9 +471,11 @@ Provide in the project file under images are two invoice documents that were obt
 different companies and have different context and layouts.
 
 **INVOICE1:**
+
 ![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/INVOICE1.PNG "GUI")
 
 **INVOICE2:**
+
 ![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/INVOICE2.PNG "GUI")
 
 ### Sample Configuration - Invoice Number
