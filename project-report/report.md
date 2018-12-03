@@ -292,7 +292,7 @@ def set_context(self, candidates, word):
 ### Group Context
 
 Once the context for each candidate has been
-defined, we will group the context based on proximity
+defined, we will group the context based on proximity.
 If mutliple context words are in sequence, we will group 
 those so that they are arranged as a phrase.
 
