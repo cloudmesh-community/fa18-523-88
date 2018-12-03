@@ -581,7 +581,7 @@ this section.
 
 ### Installation
 
-**Requirements:
+**Requirements:**
 
 numpy==1.12.1
 Pillow==5.3.0
