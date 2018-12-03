@@ -287,10 +287,10 @@ def set_context(self, candidates, word):
 
         for y in range(len(word)):
 
-            if (int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 100) and \
-                    (int(word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 20) and \
-                    (int(word[y + 1]['Right']) > int(candidates[x + 1]['Left']) - 700) and \
-                    (int(word[y + 1]['Right']) < int(candidates[x + 1]['Left']) + 20):
+            if (int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - float(ABOVE.get())) and \
+                    (int(word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + (float(BELOW.get())) +10.0) and \
+                    (int(word[y + 1]['Right']) > int(candidates[x + 1]['Left']) - float(LEFT.get())) and \
+                    (int(word[y + 1]['Right']) < int(candidates[x + 1]['Left']) + (float(RIGHT.get()) + 10.0)):
 
                 context[z] = {}
                 context[z]['Value'] = word[y + 1]['Value']
@@ -310,8 +310,8 @@ def set_context(self, candidates, word):
                     line = line + 1
                     context[z]['Line'] = line
 
-                if int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 15 and int(
-                        word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 15:
+                if int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 15 and \
+                        int(word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 15:
                     context[z]['SameLine'] = "1"
                 else:
                     context[z]['SameLine'] = "0"
