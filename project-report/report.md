@@ -479,15 +479,85 @@ nvoice number from both using only one definition(configuration).
 **Output for Invoice1:**
 ```
 WINNING CANDIDATE (CANDIDATE , WEIGHT): ('008', 125.0)
-ALL CANDIDATES: [('008', 125.0), ('555666777', 64.0), ('555-987654.', 61.0), 
-('546516516', 61.0), ('899123', 58.0), ('120.00', 55.0), ('486', 45.0)]
+ALL CANDIDATES: 
+('008', 122.0)
+('555666777', 61.0)
+('555-987654.', 58.0)
+('546516516', 58.0)
+('899123', 55.0)
+('120.00', 52.0)
+('486', 42.0)
+
 ```
 
 **Output for Invoice2:**
 ```
-WINNING CANDIDATE (CANDIDATE , WEIGHT): ('00001', 115.0)
-ALL CANDIDATES: [('00001', 115.0), ('101-102-103', 62.0), ('123,', 60.0), 
-('111-222-333,', 60.0), ('111-222-334', 51.0), ('122-222-334', 51.0), ('111-333-222,', 0)]
+WINNING CANDIDATE (CANDIDATE , WEIGHT): ('00001', 112.0)
+ALL CANDIDATES: 
+('00001', 112.0)
+('123,', 60.0)
+('111-222-333,', 60.0)
+('101-102-103', 59.0)
+('111-222-334', 48.0)
+('122-222-334', 45.0)
+('111-333-222,', 0)
+
+```
+
+### Sample Configuration - Total Amount
+
+With the same images, we can also configure the software to extract the total amount. With various amounts on the page as well as shared 
+context(Subtotal vs Total), this example shows the power of the context engine.
+
+**GUI Screen with configuration:**
+
+![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/GUI_TOTAL.PNG "GUI Total")
+
+**Output for Invoice1:**
+```
+WINNING CANDIDATE (CANDIDATE , WEIGHT): ('$7,812.00', 127.0)
+ALL CANDIDATES: 
+('$7,812.00', 127.0)
+('$6,510.00', 91.0)
+('546516516', 82.0)
+('555666777', 70.0)
+('486', 67.0)
+('11.1.2017', 65.0)
+('008', 62.0)
+('28.12.2018', 62.0)
+('120.00', 62.0)
+('$1,302.00', 62.0)
+('90.00', 55.0)
+('899123', 53.0)
+('555-987654.', 52.0)
+('1,560.00', 42.0)
+('2,610.00', 42.0)
+('2,340.00', 42.0)
+```
+
+**Output for Invoice2:**
+```
+WINNING CANDIDATE (CANDIDATE , WEIGHT): ('$302.5', 132.0)
+ALL CANDIDATES: 
+('$302.5', 132.0)
+('$275', 91.0)
+('$4,170', 74.0)
+('111-222-333,', 70.0)
+('$27.5', 70.0)
+('101-102-103', 68.0)
+('123,', 62.0)
+('111-222-334', 62.0)
+('$40', 53.0)
+('$50', 53.0)
+('$150', 49.0)
+('00001', 44.0)
+('$2,400', 44.0)
+('$20', 43.0)
+('$10', 43.0)
+('122-222-334', 32.0)
+('111-333-222,', 0)
+('$15', 0)
+('$1000', 0)
 ```
 
 ## Tools and Technology
