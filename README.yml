@@ -6,10 +6,11 @@ owner:
   community: "i523"
   semester: fa18
 technologies:
-  - url:
-  - url:
-  - url:
-  - url:
+  - url:https://github.com/cloudmesh-community/fa18-523-88/blob/master/technologies/chapters/tech/activemq.md
+  - url:https://github.com/cloudmesh-community/fa18-523-88/blob/master/technologies/chapters/tech/htcondor.md
+  - url:https://github.com/cloudmesh-community/fa18-523-88/blob/master/technologies/chapters/tech/jitterbit.md
+  - url:https://github.com/cloudmesh-community/fa18-523-88/blob/master/technologies/chapters/tech/n1ql.md
+  - url:https://github.com/cloudmesh-community/fa18-523-88/blob/master/technologies/chapters/tech/sahara.md
 paper:
   - title: OCR Technology Overview 
     keyword: OCR, Optical Character Recognition, Computer Vision
