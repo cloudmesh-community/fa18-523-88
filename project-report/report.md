@@ -579,6 +579,17 @@ ALL CANDIDATES:
 The tools and technology deployed for this project are going to be covered in 
 this section.
 
+### Installation
+
+**Requirements:
+
+numpy==1.12.1
+Pillow==5.3.0
+beautifulsoup4==4.6.3
+fuzzywuzzy==0.17.0
+pytesseract==0.2.5
+opencv-python==3.4.4.19
+
 ### Terresact
 
 Python-tesseract is an optical character recognition (OCR) tool for python.
