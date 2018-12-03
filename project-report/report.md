@@ -43,7 +43,7 @@ in the 1940's and grew alongside the rise of the digital computer.
 It was not until the late 1950's when OCR machines became 
 commercially available and today this technology presents itself 
 in both hardware devices as well as software offerings 
-[@hid-sp18-414-www-eikvilocr].OCR is the first step in enabling 
+[@fa18-523-88-www-eikvilocr].OCR is the first step in enabling 
 the extraction of actionable data by transforming print on an 
 image(document) to machine encoded text. The analysis of the output 
 provided by OCR engines allows for this key data to be used for 
@@ -58,12 +58,28 @@ Gartner, a leading technology analysis firm, has stated the following:
 > 2018, 80 percent of which would include unstructured data that are harder 
 > to tame and manage. The biggest challenges for companies will include: 
 > collecting, managing, storing, searching and archiving this content
-> [@hid-sp18-414-www-ecmandbigdata]."
+> [@fa18-523-88-www-ecmandbigdata]."
 
 As unstructured documents continues to grow, big data systems are being 
 introduced as a solution to analyze and organize this data. As a precursor, 
 an OCR extraction solution can extract actionable data from documents and 
-provide structure to unstructured content. 
+provide structure to unstructured content.
+
+As stated by Nuance:
+
+> " ...most companies understand the business potential behind big data, and 
+> that they either have a strategy in place, or have at least started to evaluate 
+> various tools and technologies to help them capitalize on all that big data 
+> has to offer. As they continue to look for new sources of meaningful data, an 
+> increasing number are now realizing that their documents may contain extremely 
+> valuable information.For example, consider an insurance company that may be 
+> sitting on reams of paper documents related to its customers. These documents 
+> are full of important information including clients’ policies, earnings and 
+> other financial details, health records, job histories, family records and much 
+> more. With the right tools, this information could be analyzed to anticipate 
+> insurance events, better attract and retain customers, reduce risk and even 
+> devise strategies to minimize malpractice suits or other ways to prevent 
+> fraud [@fa18-523-88-www-transformbigdata]."
 
 ## Overview of Optical Character Recognition
 
@@ -73,7 +89,7 @@ the system each class of pattern that can occur and providing a set of
 examples for each pattern. At the time of recognition, the system 
 performs a comparison between the unknown character provided and 
 the previously provided examples, assigned the appropriate class to 
-the closest match[@hid-sp18-414-www-eikvilocr]. This system is 
+the closest match[@fa18-523-88-www-eikvilocr]. This system is 
 designed to solely transform text on a document into machine encoded 
 text and additional systems must be built to further extract relevant information
 from the document, that is to say, the process of OCR is the first step 
@@ -107,7 +123,7 @@ Before submitting the image into Tesseract, image clean
 up is performed to create a bitonal image and to remove any noise that
 may be present. This process consists of three steps; standardizing 
 image DPI, smoothing the image and removing noise from the 
-image[@hid-sp18-414-www-imagethresholding].
+image [@fa18-523-88-www-imagethresholding].
 
 :o: spaces before brackets
 
@@ -418,7 +434,7 @@ this section.
 
 Python-tesseract is an optical character recognition (OCR) tool for python.
 That is, it will recognize and “read” the text embedded in images. Python-tesseract 
-is a wrapper for Google’s Tesseract-OCR Engine[@hid-sp18-414-www-pytesseract].
+is a wrapper for Google’s Tesseract-OCR Engine [@fa18-523-88-www-pytesseract].
 
 Code Example:
 
@@ -437,7 +453,7 @@ $ pip install pytesseract
 
 Beautiful Soup is a library that makes it easy to scrape information from web pages.
 It sits atop an HTML or XML parser, providing Pythonic idioms for iterating, searching,
-and modifying the parse tree[@hid-sp18-414-www-beautifulsoup].
+and modifying the parse tree [@fa18-523-88-www-beautifulsoup].
 
 Code Example:
 
@@ -457,7 +473,7 @@ $ pip install beautifulsoup4
 
 Fuzzy Wuzzy provides fuzzy string matching in an easy to use package.
 It uses Levenshtein Distance to calculate the differences between sequences
-in a simple-to-use package[@hid-sp18-414-www-fuzzywuzzy].
+in a simple-to-use package [@fa18-523-88-www-fuzzywuzzy].
 
 Code Example:
 
@@ -475,12 +491,12 @@ $ pip install fuzzywuzzy
 
 ### Python
 
-Python is the high-level programming language that was used to develop
+Python 3 is the high-level programming language that was used to develop
 this project.
 
 ### Numpy
 
-NumPy is the fundamental package for scientific computing with Python[#hid-sp18-414-www-NumPy].
+NumPy is the fundamental package for scientific computing with Python [@fa18-523-88-www-NumPy].
 
 Code Example:
 
@@ -500,7 +516,7 @@ $ pip install Numpy
 OpenCV (Open Source Computer Vision Library) is released under a BSD license and hence it’s
 free for both academic and commercial use. It has C++, Python and Java interfaces and
 supports Windows, Linux, Mac OS, iOS and Android. OpenCV was designed for computational 
-efficiency and with a strong focus on real-time applications[@hid-sp18-414-www-OpenCV].
+efficiency and with a strong focus on real-time applications [@fa18-523-88-www-OpenCV].
 
 Code Example:
 
@@ -520,7 +536,7 @@ $ pip install opencv-python
 The Python Imaging Library adds image processing capabilities 
 to your Python interpreter. This library provides extensive file 
 format support, an efficient internal representation, and fairly 
-powerful image processing capabilities[@hid-sp18-414-www-Pillow].
+powerful image processing capabilities [@fa18-523-88-www-Pillow].
 
 Code Example:
 
@@ -538,7 +554,7 @@ $ pip install Pillow
 ### Tkinter
 
 Tkinter is Python's a standard GUI (Graphical User Interface) package.
-It is a thin object-oriented layer on top of Tcl/Tk[@hid-sp18-414-www-tkInter].
+It is a thin object-oriented layer on top of Tcl/Tk [@fa18-523-88-www-tkInter].
 
 Install:
 
