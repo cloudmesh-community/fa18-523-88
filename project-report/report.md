@@ -257,10 +257,10 @@ def set_context(self, candidates, word):
 
         for y in range(len(word)):
 
-            if (int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 100) and (
-                    int(word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 20) and \
-                    (int(word[y + 1]['Right']) > int(candidates[x + 1]['Left']) - 700) and (
-                    int(word[y + 1]['Right']) < int(candidates[x + 1]['Left']) + 20):
+            if (int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 100) and \
+                    (int(word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 20) and \
+                    (int(word[y + 1]['Right']) > int(candidates[x + 1]['Left']) - 700) and \
+                    (int(word[y + 1]['Right']) < int(candidates[x + 1]['Left']) + 20):
 
                 context[z] = {}
                 context[z]['Value'] = word[y + 1]['Value']
