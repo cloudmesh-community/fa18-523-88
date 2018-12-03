@@ -463,6 +463,7 @@ The steps to configure are as follows:
     appear and a results text file will have been generated in the same directory as the .py script.
 
 **GUI Screen:**
+
 ![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/GUI.PNG "GUI")
 
 ### Sample Configuration - Invoice Number
@@ -472,21 +473,22 @@ different companies and have different context and layouts. With these invoices 
 nvoice number from both using only one definition(configuration).
 
 **GUI Screen with configuration:**
+
 ![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/GUI_INVOICENUMBER.PNG "GUI Invoice Number")
 
 **Output for Invoice1:**
 ```
 WINNING CANDIDATE (CANDIDATE , WEIGHT): ('008', 125.0)
-ALL CANDIDATES: [('008', 125.0), ('555666777', 64.0), ('555-987654.', 61.0), ('546516516', 61.0), ('899123', 58.0), ('120.00', 55.0), ('486', 45.0)]
+ALL CANDIDATES: [('008', 125.0), ('555666777', 64.0), ('555-987654.', 61.0), 
+('546516516', 61.0), ('899123', 58.0), ('120.00', 55.0), ('486', 45.0)]
 ```
 
 **Output for Invoice2:**
 ```
 WINNING CANDIDATE (CANDIDATE , WEIGHT): ('00001', 115.0)
-ALL CANDIDATES: [('00001', 115.0), ('101-102-103', 62.0), ('123,', 60.0), ('111-222-333,', 60.0), ('111-222-334', 51.0), ('122-222-334', 51.0), ('111-333-222,', 0)]
+ALL CANDIDATES: [('00001', 115.0), ('101-102-103', 62.0), ('123,', 60.0), 
+('111-222-333,', 60.0), ('111-222-334', 51.0), ('122-222-334', 51.0), ('111-333-222,', 0)]
 ```
-
-
 
 ## Tools and Technology
 
