@@ -449,15 +449,43 @@ The steps to configure are as follows:
 1. Candidate Regular Expression
     - The user can define multiple regular expressions that represents the data which is being extracted
 2. Keyword Weight Ratio
-    - The user will assign a weight for each of the context keywords they provide. This weight determines the strength of that keyword and directly affects the scoring algorithm.
+    - The user will assign a weight for each of the context keywords they provide. This weight determines the strength of that keyword 
+    and directly affects the scoring algorithm.
 3. Search Area Definition
-    - The user will assign a search area in relation to the candidate. With semi-structured documents, typically the most relevant context can be found to the left and above the candidate, but this system does allow to look to the right and below as well.
+    - The user will assign a search area in relation to the candidate. With semi-structured documents, typically the most relevant 
+    context can be found to the left and above the candidate, but this system does allow to look to the right and below as well.
 4. Same Line Weight Boost
     - The user can boost the weight of keywords which are found on the same line as the candidate.
 5. Context Keyword Definition
     - The user can add a list of keywords that will be used to score the context found around candidates.
+6. Run
+    - When the user presses the run button, they will be prompted to select an image to be processed. Once complete, a prompt will 
+    appear and a results text file will have been generated in the same directory as the .py script.
 
+**GUI Screen:**
 ![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/GUI.PNG "GUI")
+
+### Sample Configuration - Invoice Number
+
+Provide in the project file under images are two invoice documents that were obtained online. These two invoice images are from 
+different companies and have different context and layouts. With these invoices in mind, we will configure the system to extract the i
+nvoice number from both using only one definition(configuration).
+
+**GUI Screen with configuration:**
+![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/GUI_INVOICENUMBER.PNG "GUI Invoice Number")
+
+**Output for Invoice1:**
+```
+WINNING CANDIDATE (CANDIDATE , WEIGHT): ('008', 125.0)
+ALL CANDIDATES: [('008', 125.0), ('555666777', 64.0), ('555-987654.', 61.0), ('546516516', 61.0), ('899123', 58.0), ('120.00', 55.0), ('486', 45.0)]
+```
+
+**Output for Invoice2:**
+```
+WINNING CANDIDATE (CANDIDATE , WEIGHT): ('00001', 115.0)
+ALL CANDIDATES: [('00001', 115.0), ('101-102-103', 62.0), ('123,', 60.0), ('111-222-333,', 60.0), ('111-222-334', 51.0), ('122-222-334', 51.0), ('111-333-222,', 0)]
+```
+
 
 
 ## Tools and Technology
