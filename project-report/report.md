@@ -196,7 +196,20 @@ After this initial parsing is complete, we separate each individual data
 point within a dictionary object with the values: value, confidence, 
 left, top, right and bottom.
 
-Parsing HOCR results with Beautiful Soup
+Sample HOCR Output:
+
+```xml
+<span class="ocr_line" id="line_1_7" title="bbox 110 358 1198 378; baseline 0 0; x_size 24.339588; x_descenders 5.3395891; x_ascenders 8">
+<span class="ocrx_word" id="word_1_20" title="bbox 110 358 162 372; x_wconf 95"><em>Martin</em></span> 
+<span class="ocrx_word" id="word_1_21" title="bbox 169 358 225 372; x_wconf 77"><em>Neville</em></span> 
+<span class="ocrx_word" id="word_1_22" title="bbox 846 364 905 378; x_wconf 93"><em>Invoice</em></span> 
+<span class="ocrx_word" id="word_1_23" title="bbox 912 364 980 378; x_wconf 96"><em>number:</em></span> 
+<span class="ocrx_word" id="word_1_24" title="bbox 1168 363 1198 378; x_wconf 44"><em>008</em></span>
+</span>
+
+```
+
+Parsing HOCR results with Beautiful Soup:
 
 ```python
     def Run(self):
