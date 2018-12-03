@@ -129,7 +129,7 @@ image [@fa18-523-88-www-imagethresholding].
 
 :o: spaces before brackets
 
-Standarizing Image DPI to 300 DPI:
+**Standarizing Image DPI to 300 DPI:**
 
 ```python
 def set_dpi(path):
@@ -145,7 +145,7 @@ def set_dpi(path):
     return temp_fn
 ```
 
-Converting to Bitonal Image via Adaptive Thresholding:
+**Converting to Bitonal Image via Adaptive Thresholding:**
 
 ```python
 def remove_noise(name):
@@ -158,7 +158,7 @@ def remove_noise(name):
     original_image = cv2.bitwise_or(image, closing)
     return original_image
 ```
-Smoothing Image:
+**Smoothing Image:**
 
 ```python
 def smooth(image):
@@ -177,7 +177,7 @@ formatted text obtained from an OCR engine. This standard includes
 text, style, layout information, recognition confidence and other info
 in a XML structure. 
 
-Create HOCR data:
+**Create HOCR data:**
 
 :o: its easy to bring thsi to a smaller format that fits in 
 
@@ -186,7 +186,7 @@ Create HOCR data:
         DATA = pytesseract.image_to_pdf_or_hocr(image, lang=None, config='hocr', nice=0, extension='hocr')
 ```
 
-Sample HOCR Output:
+**Sample HOCR Output:**
 
 ```xml
 <span class="ocr_line" id="line_1_7" title="bbox 110 358 1198 378; baseline 0 0; x_size 24.339588; x_descenders 5.3395891; x_ascenders 8">
@@ -208,7 +208,7 @@ point within a dictionary object with the values: value, confidence,
 left, top, right and bottom.
 
 
-Parsing HOCR results with Beautiful Soup:
+**Parsing HOCR results with Beautiful Soup:**
 
 ```python
     def Run(self):
@@ -216,7 +216,7 @@ Parsing HOCR results with Beautiful Soup:
         words = soup.find_all('span', class_='ocrx_word')
 ```
 
-Creating word data structure:
+**Creating word data structure:**
 
 :o: this prg is a non valid python prg due to indentation errors
 
@@ -244,7 +244,7 @@ by the user. All candidates which match the regular expression are
 stored within the candidates dictionary object with the values: value, confidence, 
 left, top, right and bottom.
 
-Finding candidates:
+**Finding candidates:**
 
 :o: indentation errors
 
@@ -278,6 +278,7 @@ dictionary with the values: value, candidate ,word number, confidence,
 left, top, right, bottom, line number and same line as candidate.
 
 :o: prg unreadable, indentation errors
+**Set Context:**
 
 ```python
 def set_context(self, candidates, word):
@@ -325,6 +326,8 @@ Once the context for each candidate has been
 defined, we will group the context based on proximity.
 If mutliple context words are in sequence, we will group 
 those so that they are arranged as a phrase.
+
+**Grouping Context:**
 
 ```python
 def define_groupcontext(self, context):
@@ -381,7 +384,7 @@ the user to define which context words should carry more weight in the scoring
 algorithm. For grouped context that fall within the same line as the candidate, the user
 can define a value to be added to the overall weight. 
 
-Score Context:
+**Score Context:**
 
 ```python
 def weightcontext(self, KW_ATT):
@@ -406,6 +409,8 @@ def weightcontext(self, KW_ATT):
 Outputting a resulting text file with the winning candidate as well as
 the entire results array. The text file name will be the same as the input 
 image file.
+
+**Outputting Result:**
 
 ```python
  def outputresults(self, groupcontext, fp):
@@ -486,7 +491,7 @@ With these invoices in mind, we will configure the system to extract the invoice
 
 ![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/GUI_INVOICENUMBER.PNG "GUI Invoice Number")
 
-**Output for Invoice1:**
+**Output for Invoice-1:**
 ```
 WINNING CANDIDATE (CANDIDATE , WEIGHT): ('008', 125.0)
 ALL CANDIDATES: 
@@ -500,7 +505,7 @@ ALL CANDIDATES:
 
 ```
 
-**Output for Invoice2:**
+**Output for Invoice-2:**
 ```
 WINNING CANDIDATE (CANDIDATE , WEIGHT): ('00001', 112.0)
 ALL CANDIDATES: 
@@ -523,7 +528,7 @@ context(Subtotal vs Total), this example shows the power of the context engine.
 
 ![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/GUI_TOTAL.PNG "GUI Total")
 
-**Output for Invoice1:**
+**Output for Invoice-1:**
 ```
 WINNING CANDIDATE (CANDIDATE , WEIGHT): ('$7,812.00', 127.0)
 ALL CANDIDATES: 
@@ -545,7 +550,7 @@ ALL CANDIDATES:
 ('2,340.00', 42.0)
 ```
 
-**Output for Invoice2:**
+**Output for Invoice-2:**
 ```
 WINNING CANDIDATE (CANDIDATE , WEIGHT): ('$302.5', 132.0)
 ALL CANDIDATES: 
