@@ -477,11 +477,11 @@ different companies and have different context and layouts.
 
 **INVOICE1:**
 
-![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/INVOICE-1.PNG "GUI")
+![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/1-INVOICE.PNG "GUI")
 
 **INVOICE2:**
 
-![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/INVOICE-2.PNG "GUI")
+![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/2-INVOICE.PNG "GUI")
 
 ### Sample Configuration - Invoice Number
 
