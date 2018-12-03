@@ -17,9 +17,17 @@ Keywords: OCR, Tesseract, Python
 
 ## Abstract
 
-:o: The main purpose of this ~~projec~~ is to create a simple 
+:o: The main purpose is to create a simple 
 OCR extraction implementation which is able to extract 
 key metadata from documents. 
+
+The focus is to create an extraction engine that will work 
+well for semi-structured and unstructured documents. As the 
+volume of these documents are ever increasing, organizations 
+are tasked with storing and organzing these doucments. An OCR tool 
+that enables these  organizations to extract valuable information 
+from these documents is the first step in being able to analyze the 
+data that is currently locked within these documents.
 :o: no explenation provided how this relates to buig data.
 
 To accomplish this, Google's 
@@ -46,11 +54,11 @@ Gartner, a leading technology analysis firm, has stated the following:
 
 :o: use of non ascii characters please do not just paste and coppy from word. Word produces dirty text for markdown. Previously mentioned in piazza FAQ.
 
-> “…the amount of data stored in companies will increase by 800 percent by 
+> "...the amount of data stored in companies will increase by 800 percent by 
 > 2018, 80 percent of which would include unstructured data that are harder 
 > to tame and manage. The biggest challenges for companies will include: 
 > collecting, managing, storing, searching and archiving this content
-> [@hid-sp18-414-www-ecmandbigdata].” 
+> [@hid-sp18-414-www-ecmandbigdata]."
 
 As unstructured documents continues to grow, big data systems are being 
 introduced as a solution to analyze and organize this data. As a precursor, 
@@ -75,14 +83,12 @@ into valuable and relevant information.
 
 ## Context Based Extraction Engine
 
-
 This project utilizes Google's Open Source Tesseract OCR engine to provide
 HOCR output that is leveraged to begin the process of extracting information 
-from unstructured data provided by Tesseract. The extraction engine's logic works 
-in two distinct phases, the identification of potential candidates( data which follows 
-a specific format) and the scoring of each candidate based on context around said 
-candidate. At the end of this process, the candidate which obtained the highest 
-score will be selected. 
+from unstructured data provided by Tesseract. The extraction engine's logic works by 
+indentifying potential candidates(data which follows a specific format) and the 
+scoring of each candidate based on context around said candidate. At the end of this 
+process, the candidate which obtained the highest score will be selected. 
 
 For the extraction engine, there are 8 distinct phases: 
 
@@ -108,47 +114,41 @@ image[@hid-sp18-414-www-imagethresholding].
 Standarizing Image DPI to 300 DPI:
 
 ```python
- def set_dpi(path):
-
-   image = IMG.open(path)
-   len_x, wid_y = image.size
-   factor = max(1, int(1800 / len_x))
-   size = factor * len_x, factor * wid_y
-   image_resized = image.resize(size, IMG.ANTIALIAS)
-   temp_f = tempfile.NamedTemporaryFile()
-   temp_fn = temp_f.name
-   image_resized.save(temp_fn, dpi=(300, 300))
-
-   return temp_fn
+def set_dpi(path):
+    image = IMG.open(path)
+    len_x, wid_y = image.size
+    factor = max(1, int(1800 / len_x))
+    size = factor * len_x, factor * wid_y
+    # size = (1800, 1800)
+    image_resized = image.resize(size, IMG.ANTIALIAS)
+    temp_f = tempfile.NamedTemporaryFile(delete=False, suffix='.jpg')
+    temp_fn = temp_f.name
+    image_resized.save(temp_fn, dpi=(300, 300))
+    return temp_fn
 ```
 
 Converting to Bitonal Image via Adaptive Thresholding:
 
 ```python
- def remove_noise(name):
-   
-   image = cv2.imread(name, 0)
-   filtered = cv2.adaptiveThreshold(image.astype(np.uint8), 255, 
-   cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 41, 3)
-   core = np.ones((1, 1), np.uint8)
-   opening = cv2.morphologyEx(filtered, cv2.MORPH_OPEN, core)
-   closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, core)
-   image = smooth(image)
-   original_image = cv2.bitwise_or(image, closing)
-   
-   return original_image
+def remove_noise(name):
+    image = cv2.imread(name, 0)
+    filtered = cv2.adaptiveThreshold(image.astype(np.uint8), 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 41, 3)
+    core = np.ones((1, 1), np.uint8)
+    opening = cv2.morphologyEx(filtered, cv2.MORPH_OPEN, core)
+    closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, core)
+    image = smooth(image)
+    original_image = cv2.bitwise_or(image, closing)
+    return original_image
 ```
 Smoothing Image:
 
 ```python
- def smooth(image):
-
-   ret1, th1 = cv2.threshold(image, BINARY_THREHOLD, 255, cv2.THRESH_BINARY)
-   ret2, th2 = cv2.threshold(th1, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-   blur = cv2.GaussianBlur(th2, (1, 1), 0)
-   ret3, th3 = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-   
-   return th3
+def smooth(image):
+    ret1, th1 = cv2.threshold(image, BINARY_THREHOLD, 255, cv2.THRESH_BINARY)
+    ret2, th2 = cv2.threshold(th1, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    blur = cv2.GaussianBlur(th2, (1, 1), 0)
+    ret3, th3 = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    return th3
 ```
 
 ### OCR Process
@@ -164,9 +164,8 @@ Create HOCR data:
 :o: its easy to bring thsi to a smaller format that fits in 
 
 ```python
- def Run(self):
-   
-   DATA = pytesseract.image_to_pdf_or_hocr(image, lang=None, config='hocr', nice=0, extension='hocr')
+    def Run(self):
+        DATA = pytesseract.image_to_pdf_or_hocr(image, lang=None, config='hocr', nice=0, extension='hocr')
 ```
 
 
@@ -182,9 +181,9 @@ left, top, right and bottom.
 Parsing HOCR results with Beautiful Soup
 
 ```python
- def Run(self):
-   soup = bs4.BeautifulSoup(DATA, 'html.parser')
-   words = soup.find_all('span', class_='ocrx_word')
+    def Run(self):
+        soup = bs4.BeautifulSoup(DATA, 'html.parser')
+        words = soup.find_all('span', class_='ocrx_word')
 ```
 
 Creating word data structure:
@@ -194,24 +193,24 @@ Creating word data structure:
 :o: why not use variables or functions to make it more readbale
 
 ```python
- def transform_hocr(self, words):
+def transform_hocr(self, words):
+    # Convert HOCR to usable structure
+    for x in range(len(words)):
+        word[int(words[x]['id'].split('_')[2])] = {}
+        word[int(words[x]['id'].split('_')[2])]['Value'] = words[x].get_text()
+        word[int(words[x]['id'].split('_')[2])]['Confidence'] = words[x]['title'].split(';')[1].split(' ')[2]
+        word[int(words[x]['id'].split('_')[2])]['Left'] = words[x]['title'].split(';')[0].split(' ')[1]
+        word[int(words[x]['id'].split('_')[2])]['Top'] = words[x]['title'].split(';')[0].split(' ')[2]
+        word[int(words[x]['id'].split('_')[2])]['Right'] = words[x]['title'].split(';')[0].split(' ')[3]
+        word[int(words[x]['id'].split('_')[2])]['Bottom'] = words[x]['title'].split(';')[0].split(' ')[4]
 
-   for x in range(len(words)):
-     
-	 word[int(words[x]['id'].split('_')[2])] = {}
-     word[int(words[x]['id'].split('_')[2])]['Value'] = words[x].get_text()
-     word[int(words[x]['id'].split('_')[2])]['Confidence'] = words[x]['title'].split(';')[1].split(' ')[2]
-     word[int(words[x]['id'].split('_')[2])]['Left'] = words[x]['title'].split(';')[0].split(' ')[1]
-     word[int(words[x]['id'].split('_')[2])]['Top'] = words[x]['title'].split(';')[0].split(' ')[2]
-     word[int(words[x]['id'].split('_')[2])]['Right'] = words[x]['title'].split(';')[0].split(' ')[3]
-     word[int(words[x]['id'].split('_')[2])]['Bottom'] = words[x]['title'].split(';')[0].split(' ')[4]
 ```
 
 ### Define Candidates
 
 After transforming the HOCR results, we use the generated word dictionary 
 to find values that match the defined regular expression that was provided
-by the user. We store all candidates which match the regular expression are 
+by the user. All candidates which match the regular expression are 
 stored within the candidates dictionary object with the values: value, confidence, 
 left, top, right and bottom.
 
@@ -220,24 +219,27 @@ Finding candidates:
 :o: indentation errors
 
 ```python
- def find_candidates(self, RE_ATT):
-   y = 1
-   for z in RE_ATT:
-     for x in range(len(word)):
-       m = re.match(r'' + z + '', word[x + 1]['Value'], )
-       if m:
-		candidates[y] = {}
-		candidates[y]['Value'] = word[x + 1]['Value']
-		candidates[y]['Confidence'] = word[x + 1]['Confidence']
-		candidates[y]['Left'] = word[x + 1]['Left']
-		candidates[y]['Top'] = word[x + 1]['Top']
-		candidates[y]['Right'] = word[x + 1]['Right']
-		candidates[y]['Bottom'] = word[x + 1]['Bottom']
-		y = y + 1
+def find_candidates(self, RE_ATT):
+    y = 1
+    for z in RE_ATT:
+
+        for x in range(len(word)):
+
+            m = re.match(r'' + z + '', word[x + 1]['Value'], )
+
+            if m:
+                candidates[y] = {}
+                candidates[y]['Value'] = word[x + 1]['Value']
+                candidates[y]['Confidence'] = word[x + 1]['Confidence']
+                candidates[y]['Left'] = word[x + 1]['Left']
+                candidates[y]['Top'] = word[x + 1]['Top']
+                candidates[y]['Right'] = word[x + 1]['Right']
+                candidates[y]['Bottom'] = word[x + 1]['Bottom']
+                print(candidates[y])
+                y = y + 1
 ```
 
 ### Set Context
-
 
 Using the location input define by the user, we will set the context of each
 candidate based on the proximity(top, bottom, left and right) in pixels.
@@ -248,93 +250,94 @@ left, top, right, bottom, line number and same line as candidate.
 :o: prg unreadable, indentation errors
 
 ```python
- def set_context(self, candidates, word):
+def set_context(self, candidates, word):
+    line = 1
+    z = 1
+    for x in range(len(candidates)):
 
-   line = 1
-   z = 1
+        for y in range(len(word)):
 
-   for x in range(len(candidates)):
-     
-	 for y in range(len(word)):
-	 
-	   if (int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 100) and (int(word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 20) and \
-		(int(word[y + 1]['Right']) > int(candidates[x + 1]['Left']) - 700) and (int(word[y + 1]['Right']) < int(candidates[x + 1]['Left']) + 20):
+            if (int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 100) and (
+                    int(word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 20) and \
+                    (int(word[y + 1]['Right']) > int(candidates[x + 1]['Left']) - 700) and (
+                    int(word[y + 1]['Right']) < int(candidates[x + 1]['Left']) + 20):
 
-		  context[z] = {}
-		  context[z]['Value'] = word[y + 1]['Value']
-		  context[z]['Candidates'] = candidates[x + 1]['Value']
-		  context[z]['Word'] = str(y + 1)
-		  context[z]['Confidence'] = word[y + 1]['Confidence']
-		  context[z]['Left'] = word[y + 1]['Left']
-		  context[z]['Top'] = word[y + 1]['Top']
-		  context[z]['Right'] = word[y + 1]['Right']
-		  context[z]['Bottom'] = word[y + 1]['Bottom']
+                context[z] = {}
+                context[z]['Value'] = word[y + 1]['Value']
+                context[z]['Candidates'] = candidates[x + 1]['Value']
+                context[z]['Word'] = str(y + 1)
+                context[z]['Confidence'] = word[y + 1]['Confidence']
+                context[z]['Left'] = word[y + 1]['Left']
+                context[z]['Top'] = word[y + 1]['Top']
+                context[z]['Right'] = word[y + 1]['Right']
+                context[z]['Bottom'] = word[y + 1]['Bottom']
 
-	   if z == 1:
-		  context[z]['Line'] = line
-	   elif context[z - 1]['Bottom'] == word[y + 1]['Bottom']:
-		  context[z]['Line'] = line
-	   else:
-		  line = line + 1
-		  context[z]['Line'] = line
+                if z == 1:
+                    context[z]['Line'] = line
+                elif context[z - 1]['Bottom'] == word[y + 1]['Bottom']:
+                    context[z]['Line'] = line
+                else:
+                    line = line + 1
+                    context[z]['Line'] = line
 
-	   if int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 15 and int(word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 15:
-		  context[z]['SameLine'] = "1"
-	   else:
-		  context[z]['SameLine'] = "0"
+                if int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 15 and int(
+                        word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 15:
+                    context[z]['SameLine'] = "1"
+                else:
+                    context[z]['SameLine'] = "0"
 
-	   z = z + 1
+                z = z + 1
 ```
 
 ### Group Context
 
 Once the context for each candidate has been
 defined, we will group the context based on proximity
-If mutliple context words are in sequence, we wil group 
+If mutliple context words are in sequence, we will group 
 those so that they are arranged as a phrase.
 
 ```python
- def define_groupcontext(self, context):
-   z = 1
-   for x in range(len(context)):
+def define_groupcontext(self, context):
+    # TRANSFORM CONTEXT INTO GROUPED CONTEXT
+    # Context words that are on the same line and in sequence are grouped together
+    z = 1
+    for x in range(len(context)):
 
-     if x == 0:
-	   
-	   groupcontext[z] = {}
-	   groupcontext[z]['Value'] = context[x + 1]['Value']
-	   groupcontext[z]['Word'] = context[x + 1]['Word']
-	   groupcontext[z]['Candidates'] = context[x + 1]['Candidates']
-	   groupcontext[z]['Weight'] = '0'
-	   groupcontext[z]['Confidence'] = context[x + 1]['Confidence']
-	   groupcontext[z]['Left'] = context[x + 1]['Left']
-	   groupcontext[z]['Top'] = context[x + 1]['Top']
-	   groupcontext[z]['Right'] = context[x + 1]['Right']
-	   groupcontext[z]['Bottom'] = context[x + 1]['Bottom']
-	   groupcontext[z]['SameLine'] = context[x + 1]['SameLine']
+        if x == 0:
+            groupcontext[z] = {}
+            groupcontext[z]['Value'] = context[x + 1]['Value']
+            groupcontext[z]['Word'] = context[x + 1]['Word']
+            groupcontext[z]['Candidates'] = context[x + 1]['Candidates']
+            groupcontext[z]['Weight'] = '0'
+            groupcontext[z]['Confidence'] = context[x + 1]['Confidence']
+            groupcontext[z]['Left'] = context[x + 1]['Left']
+            groupcontext[z]['Top'] = context[x + 1]['Top']
+            groupcontext[z]['Right'] = context[x + 1]['Right']
+            groupcontext[z]['Bottom'] = context[x + 1]['Bottom']
+            groupcontext[z]['SameLine'] = context[x + 1]['SameLine']
 
-	 elif int(groupcontext[z]['Word']) + 1 == int(context[x + 1]['Word']):
+        elif int(groupcontext[z]['Word']) + 1 == int(context[x + 1]['Word']):
 
-	   groupcontext[z]['Value'] = groupcontext[z]['Value'] + ' ' + context[x + 1]['Value']
-	   groupcontext[z]['Word'] = context[x + 1]['Word']
-	   groupcontext[z]['Confidence'] = context[x + 1]['Confidence']
-	   groupcontext[z]['Top'] = context[x + 1]['Top']
-	   groupcontext[z]['Right'] = context[x + 1]['Right']
-	   groupcontext[z]['Bottom'] = context[x + 1]['Bottom']
+            groupcontext[z]['Value'] = groupcontext[z]['Value'] + ' ' + context[x + 1]['Value']
+            groupcontext[z]['Word'] = context[x + 1]['Word']
+            groupcontext[z]['Confidence'] = context[x + 1]['Confidence']
+            groupcontext[z]['Top'] = context[x + 1]['Top']
+            groupcontext[z]['Right'] = context[x + 1]['Right']
+            groupcontext[z]['Bottom'] = context[x + 1]['Bottom']
 
-	 else:
-	
-	   z = z + 1
-	   groupcontext[z] = {}
-	   groupcontext[z]['Value'] = context[x + 1]['Value']
-	   groupcontext[z]['Word'] = context[x + 1]['Word']
-	   groupcontext[z]['Candidates'] = context[x + 1]['Candidates']
-	   groupcontext[z]['Weight'] = '0'
-	   groupcontext[z]['Confidence'] = context[x + 1]['Confidence']
-	   groupcontext[z]['Left'] = context[x + 1]['Left']
-	   groupcontext[z]['Top'] = context[x + 1]['Top']
-	   groupcontext[z]['Right'] = context[x + 1]['Right']
-	   groupcontext[z]['Bottom'] = context[x + 1]['Bottom']
-	   groupcontext[z]['SameLine'] = context[x + 1]['SameLine']
+        else:
+            z = z + 1
+            groupcontext[z] = {}
+            groupcontext[z]['Value'] = context[x + 1]['Value']
+            groupcontext[z]['Word'] = context[x + 1]['Word']
+            groupcontext[z]['Candidates'] = context[x + 1]['Candidates']
+            groupcontext[z]['Weight'] = '0'
+            groupcontext[z]['Confidence'] = context[x + 1]['Confidence']
+            groupcontext[z]['Left'] = context[x + 1]['Left']
+            groupcontext[z]['Top'] = context[x + 1]['Top']
+            groupcontext[z]['Right'] = context[x + 1]['Right']
+            groupcontext[z]['Bottom'] = context[x + 1]['Bottom']
+            groupcontext[z]['SameLine'] = context[x + 1]['SameLine']
 ```
 
 ### Score Context
@@ -351,14 +354,21 @@ can define a value to be added to the overall weight.
 Score Context:
 
 ```python
- def weightcontext(self, KW_ATT):
-   for z, value in KW_ATT.items():
-	  for x in range(len(groupcontext)):
-	     groupcontext[x + 1]['Weight'] = 0
-		 if int(groupcontext[x + 1]['Weight']) < fuzz.WRatio(groupcontext[x + 1]['Value'], z):
-		    groupcontext[x + 1]['Weight'] = int(fuzz.WRatio(groupcontext[x + 1]['Value'], z)) * int(value[0]) / 100
-		 if groupcontext[x + 1]['SameLine'] == '1':
-		    groupcontext[x + 1]['Weight'] = groupcontext[x + 1]['Weight'] + int(value[5])
+def weightcontext(self, KW_ATT):
+    # Match Context and Weighting
+
+    for z, value in KW_ATT.items():
+
+        for x in range(len(groupcontext)):
+
+            groupcontext[x + 1]['Weight'] = 0
+
+            if int(groupcontext[x + 1]['Weight']) < fuzz.WRatio(groupcontext[x + 1]['Value'], z):
+                groupcontext[x + 1]['Weight'] = float(fuzz.WRatio(groupcontext[x + 1]['Value'], z)) * float(
+                    value[0]) / 100
+
+                if groupcontext[x + 1]['SameLine'] == '1':
+                    groupcontext[x + 1]['Weight'] = groupcontext[x + 1]['Weight'] + float(value[5])
 ```
 
 ### Output Result
@@ -368,27 +378,31 @@ the entire results array. The text file name will be the same as the input
 image file.
 
 ```python
- def outputresults(self, groupcontext,fp):
-   for x in range(len(groupcontext)):
-	 if groupcontext[x + 1]['Candidates'] in results:
-	   if int(results[groupcontext[x + 1]['Candidates']]) < int(groupcontext[x + 1]['Weight']):
-		 results[groupcontext[x + 1]['Candidates']] = groupcontext[x + 1]['Weight']
-	   else:
-	     results[groupcontext[x + 1]['Candidates']] = groupcontext[x + 1]['Weight']
+ def outputresults(self, groupcontext, fp):
+    # Output Results
+    for x in range(len(groupcontext)):
 
-   if(len(results.keys()) == 0):
+        if groupcontext[x + 1]['Candidates'] in results:
 
-     f = open(fp + '.txt', 'w')
-	 f.write("Could not find any valid candidates")
-	 f.close()
-	 
-   else:
+            if int(results[groupcontext[x + 1]['Candidates']]) < int(groupcontext[x + 1]['Weight']):
+                results[groupcontext[x + 1]['Candidates']] = groupcontext[x + 1]['Weight']
 
-     sorted_by_value = sorted(results.items(), key=lambda kv: kv[1], reverse=True)
-	 f = open(fp +'.txt', 'w')
-	 f.write("WINNING CANDIDATE (CANDIDATE , WEIGHT): " + str(sorted_by_value[0]) + "\n")
-	 f.write("ALL CANDIDATES: " + str(sorted_by_value))
-	 f.close()
+        else:
+            results[groupcontext[x + 1]['Candidates']] = groupcontext[x + 1]['Weight']
+
+    if (len(results.keys()) == 0):
+
+        f = open(fp + '.txt', 'w')
+        f.write("Could not find any valid candidates")
+        f.close()
+
+    else:
+        sorted_by_value = sorted(results.items(), key=lambda kv: kv[1], reverse=True)
+        f = open(fp + '.txt', 'w')
+        f.write("WINNING CANDIDATE (CANDIDATE , WEIGHT): " + str(sorted_by_value[0]) + "\n")
+        f.write("ALL CANDIDATES: " + str(sorted_by_value))
+        f.close()
+
 ```
 
 ## Example
