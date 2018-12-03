@@ -23,18 +23,17 @@ key metadata from documents.
 
 The focus is to create an extraction engine that will work 
 well for semi-structured and unstructured documents. As the 
-volume of these documents are ever increasing, organizations 
-are tasked with storing and organzing these doucments. An OCR tool 
-that enables these  organizations to extract valuable information 
-from these documents is the first step in being able to analyze the 
-data that is currently locked within these documents.
+volume are ever increasing, organizations are tasked with storing 
+and organzing these doucments. An OCR tool that enables these  organizations 
+to extract valuable information from these documents is the first 
+step in being able to analyze the data that is currently locked 
+within these documents.
 :o: no explenation provided how this relates to buig data.
 
-To accomplish this, Google's 
-Tesseract OCR Engine is leveraged to provide full-page OCR 
-data. The goal is to have a configurable extraction engine 
-that allows users to pin-point the meta-data to be extracted 
-and output said meta-data.
+To accomplish this, Google's Tesseract OCR Engine is leveraged to 
+provide full-page OCR data. The goal is to have a configurable 
+extraction engine that allows users to pin-point the meta-data 
+to be extracted and output said meta-data.
 
 ## Introduction
 
@@ -50,7 +49,7 @@ provided by OCR engines allows for this key data to be used for
 downstream processes and reporting. Documents fall into three categories: 
 structured documents, semi-structured documents and unstructured documents. 
 
-Gartner, a leading technology analysis firm, has stated the following:
+*Gartner, a leading technology analysis firm, has stated the following:*
 
 :o: use of non ascii characters please do not just paste and coppy from word. Word produces dirty text for markdown. Previously mentioned in piazza FAQ.
 
@@ -65,7 +64,7 @@ introduced as a solution to analyze and organize this data. As a precursor,
 an OCR extraction solution can extract actionable data from documents and 
 provide structure to unstructured content.
 
-As stated by Nuance:
+*Nuance, an OCR engine provider, has stated:*
 
 > " ...most companies understand the business potential behind big data, and 
 > that they either have a strategy in place, or have at least started to evaluate 
@@ -410,7 +409,7 @@ Outputting a resulting text file with the winning candidate as well as
 the entire results array. The text file name will be the same as the input 
 image file.
 
-**Outputting Result:**
+**Outputting Results:**
 
 ```python
  def outputresults(self, groupcontext, fp):
