@@ -80,19 +80,12 @@ score will be selected.
 For the extraction engine, there are 8 distinct phases: 
 
 1. Image Thresholding
-
 2. OCR Process
-
 3. Transform HOCR Data
-
 4. Define Candidates
-
 5. Set Context
-
 6. Group Context
-
 7. Score Context
-
 8. Output Results
 
 ### Image Thresholding
@@ -105,7 +98,7 @@ image[@hid-sp18-414-www-imagethresholding].
 
 Standarizing Image DPI to 300 DPI:
 
-```
+```python
  def set_dpi(path):
 
    image = IMG.open(path)
@@ -122,7 +115,7 @@ Standarizing Image DPI to 300 DPI:
 
 Converting to Bitonal Image via Adaptive Thresholding:
 
-```
+```python
  def remove_noise(name):
    
    image = cv2.imread(name, 0)
@@ -138,7 +131,7 @@ Converting to Bitonal Image via Adaptive Thresholding:
 ```
 Smoothing Image:
 
-```
+```python
  def smooth(image):
 
    ret1, th1 = cv2.threshold(image, BINARY_THREHOLD, 255, cv2.THRESH_BINARY)
@@ -158,7 +151,8 @@ text, style, layout information, recognition confidence and other info
 in a XML structure. 
 
 Create HOCR data:
-```
+
+```python
  def Run(self):
    
    DATA = pytesseract.image_to_pdf_or_hocr(image, lang=None, config='hocr', nice=0, extension='hocr')
@@ -176,7 +170,7 @@ left, top, right and bottom.
 
 Parsing HOCR results with Beautiful Soup
 
-```
+```python
  def Run(self):
    soup = bs4.BeautifulSoup(DATA, 'html.parser')
    words = soup.find_all('span', class_='ocrx_word')
@@ -184,7 +178,7 @@ Parsing HOCR results with Beautiful Soup
 
 Creating word data structure:
 
-```
+```python
  def transform_hocr(self, words):
 
    for x in range(len(words)):
@@ -208,7 +202,7 @@ left, top, right and bottom.
 
 Finding candidates:
 
-```
+```python
  def find_candidates(self, RE_ATT):
    y = 1
    for z in RE_ATT:
@@ -239,7 +233,7 @@ dictionary with the values: value, candidate ,word number, confidence,
 left, top, right, bottom, line number and same line as candidate.
 
 
-```
+```python
  def set_context(self, candidates, word):
 
    line = 1
@@ -285,7 +279,7 @@ defined, we will group the context based on proximity
 If mutliple context words are in sequence, we wil group 
 those so that they are arranged as a phrase.
 
-```
+```python
  def define_groupcontext(self, context):
    z = 1
    for x in range(len(context)):
@@ -342,21 +336,14 @@ can define a value to be added to the overall weight.
 
 Score Context:
 
-```
+```python
  def weightcontext(self, KW_ATT):
-
    for z, value in KW_ATT.items():
-
 	  for x in range(len(groupcontext)):
-
 	     groupcontext[x + 1]['Weight'] = 0
-
 		 if int(groupcontext[x + 1]['Weight']) < fuzz.WRatio(groupcontext[x + 1]['Value'], z):
-
 		    groupcontext[x + 1]['Weight'] = int(fuzz.WRatio(groupcontext[x + 1]['Value'], z)) * int(value[0]) / 100
-
 		 if groupcontext[x + 1]['SameLine'] == '1':
-		  
 		    groupcontext[x + 1]['Weight'] = groupcontext[x + 1]['Weight'] + int(value[5])
 ```
 
@@ -366,20 +353,14 @@ Outputting a resulting text file with the winning candidate as well as
 the entire results array. The text file name will be the same as the input 
 image file.
 
-```
+```python
  def outputresults(self, groupcontext,fp):
    for x in range(len(groupcontext)):
-
 	 if groupcontext[x + 1]['Candidates'] in results:
-
 	   if int(results[groupcontext[x + 1]['Candidates']]) < int(groupcontext[x + 1]['Weight']):
-	     
 		 results[groupcontext[x + 1]['Candidates']] = groupcontext[x + 1]['Weight']
-
 	   else:
-
 	     results[groupcontext[x + 1]['Candidates']] = groupcontext[x + 1]['Weight']
-
 
    if(len(results.keys()) == 0):
 
@@ -410,15 +391,16 @@ That is, it will recognize and “read” the text embedded in images. Python-te
 is a wrapper for Google’s Tesseract-OCR Engine[@hid-sp18-414-www-pytesseract].
 
 Code Example:
-```
- import pytesseract
-   
-   hocr = pytesseract.image_to_pdf_or_hocr('test.png', extension='hocr')
+
+```python
+import pytesseract
+hocr = pytesseract.image_to_pdf_or_hocr('test.png', extension='hocr')
 ```
 
 Install:
-```
-pip install pytesseract
+
+```bash
+$ pip install pytesseract
 ```
 
 ### Beautiful Soup
@@ -428,16 +410,17 @@ It sits atop an HTML or XML parser, providing Pythonic idioms for iterating, sea
 and modifying the parse tree[@hid-sp18-414-www-beautifulsoup].
 
 Code Example:
-```
- import bs4
-   
-   soup = bs4.BeautifulSoup(DATA, 'html.parser')
-   words = soup.find_all('span', class_='ocrx_word')
+
+```python
+import bs4
+soup = bs4.BeautifulSoup(DATA, 'html.parser')
+words = soup.find_all('span', class_='ocrx_word')
 ```
 
 Install:
-```
-pip install beautifulsoup4
+
+```python
+$ pip install beautifulsoup4
 ```
 
 ### FuzzyWuzzy
@@ -447,17 +430,17 @@ It uses Levenshtein Distance to calculate the differences between sequences
 in a simple-to-use package[@hid-sp18-414-www-fuzzywuzzy].
 
 Code Example:
-```
- from fuzzywuzzy import fuzz
 
-   fuzz.ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear")
+```python
+from fuzzywuzzy import fuzz
+fuzz.ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear")
 
 Output:91
-```
 
-Install:
 ```
-pip install fuzzywuzzy
+Install:
+```bash
+$ pip install fuzzywuzzy
 ```
 
 ### Python
@@ -470,14 +453,16 @@ this project.
 NumPy is the fundamental package for scientific computing with Python[#hid-sp18-414-www-NumPy].
 
 Code Example:
-```
- import numpy as np
-   core = np.ones((1, 1), np.uint8)
+
+```python
+import numpy as np
+core = np.ones((1, 1), np.uint8)
 ```
 
 Install:
-```
-pip install Numpy
+
+```python
+$ pip install Numpy
 ```
 
 ### OpenCV
@@ -488,14 +473,16 @@ supports Windows, Linux, Mac OS, iOS and Android. OpenCV was designed for comput
 efficiency and with a strong focus on real-time applications[@hid-sp18-414-www-OpenCV].
 
 Code Example:
-```
- import cv2
-   img = cv2.imread('messi5.jpg',0)
+
+```python
+import cv2
+img = cv2.imread('messi5.jpg',0)
 ```
 
 Install:
-```
-pip install opencv-python
+
+```bash
+$ pip install opencv-python
 ```
 
 ### Python Imaging Library
@@ -506,14 +493,16 @@ format support, an efficient internal representation, and fairly
 powerful image processing capabilities[@hid-sp18-414-www-Pillow].
 
 Code Example:
-```
- from PIL import Image as IMG
-   image = IMG.open(path)
+
+```python
+from PIL import Image as IMG
+image = IMG.open(path)
 ```
 
 Install:
-```
-pip install Pillow
+
+```bash
+$ pip install Pillow
 ```
 
 ### Tkinter
@@ -522,8 +511,9 @@ Tkinter is Python's a standard GUI (Graphical User Interface) package.
 It is a thin object-oriented layer on top of Tcl/Tk[@hid-sp18-414-www-tkInter].
 
 Install:
-```
-pip install Tkinter
+
+```bash
+$ pip install Tkinter
 ```
 
 ## Conclusion
