@@ -582,12 +582,13 @@ this section.
 ### Installation
 
 **Requirements:**
-numpy==1.12.1
-Pillow==5.3.0
-beautifulsoup4==4.6.3
-fuzzywuzzy==0.17.0
-pytesseract==0.2.5
-opencv-python==3.4.4.19
+
+-numpy==1.12.1
+-Pillow==5.3.0
+-beautifulsoup4==4.6.3
+-fuzzywuzzy==0.17.0
+-pytesseract==0.2.5
+-opencv-python==3.4.4.19
 
 ### Terresact
 
