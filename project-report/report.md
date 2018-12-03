@@ -70,8 +70,10 @@ As stated by Nuance:
 > " ...most companies understand the business potential behind big data, and 
 > that they either have a strategy in place, or have at least started to evaluate 
 > various tools and technologies to help them capitalize on all that big data 
-> has to offer. As they continue to look for new sources of meaningful data, an 
-> increasing number are now realizing that their documents may contain extremely 
+> has to offer.
+>
+> As they continue to look for new sources of meaningful data, an increasing 
+> number are now realizing that their documents may contain extremely 
 > valuable information.For example, consider an insurance company that may be 
 > sitting on reams of paper documents related to its customers. These documents 
 > are full of important information including clients’ policies, earnings and 
