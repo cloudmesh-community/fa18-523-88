@@ -582,7 +582,6 @@ this section.
 ### Installation
 
 **Requirements:**
-
 numpy==1.12.1
 Pillow==5.3.0
 beautifulsoup4==4.6.3
