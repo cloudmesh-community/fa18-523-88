@@ -13,11 +13,16 @@ Keywords: OCR, Tesseract, Python
           
 ---
 
+:o: as pointed out previously on piazza, remove the word *project* or *report* from your report. simply sauy We
+
 ## Abstract
 
-The main purpose of this project is to create a simple 
+:o: The main purpose of this ~~projec~~ is to create a simple 
 OCR extraction implementation which is able to extract 
-key metadata from documents. To accomplish this, Google's 
+key metadata from documents. 
+:o: no explenation provided how this relates to buig data.
+
+To accomplish this, Google's 
 Tesseract OCR Engine is leveraged to provide full-page OCR 
 data. The goal is to have a configurable extraction engine 
 that allows users to pin-point the meta-data to be extracted 
@@ -38,6 +43,8 @@ downstream processes and reporting. Documents fall into three categories:
 structured documents, semi-structured documents and unstructured documents. 
 
 Gartner, a leading technology analysis firm, has stated the following:
+
+:o: use of non ascii characters please do not just paste and coppy from word. Word produces dirty text for markdown. Previously mentioned in piazza FAQ.
 
 > “…the amount of data stored in companies will increase by 800 percent by 
 > 2018, 80 percent of which would include unstructured data that are harder 
@@ -96,6 +103,8 @@ may be present. This process consists of three steps; standardizing
 image DPI, smoothing the image and removing noise from the 
 image[@hid-sp18-414-www-imagethresholding].
 
+:o: spaces before brackets
+
 Standarizing Image DPI to 300 DPI:
 
 ```python
@@ -152,6 +161,8 @@ in a XML structure.
 
 Create HOCR data:
 
+:o: its easy to bring thsi to a smaller format that fits in 
+
 ```python
  def Run(self):
    
@@ -178,6 +189,10 @@ Parsing HOCR results with Beautiful Soup
 
 Creating word data structure:
 
+:o: this prg is a non valid python prg due to indentation errors
+
+:o: why not use variables or functions to make it more readbale
+
 ```python
  def transform_hocr(self, words):
 
@@ -202,17 +217,15 @@ left, top, right and bottom.
 
 Finding candidates:
 
+:o: indentation errors
+
 ```python
  def find_candidates(self, RE_ATT):
    y = 1
    for z in RE_ATT:
-
      for x in range(len(word)):
-
        m = re.match(r'' + z + '', word[x + 1]['Value'], )
-
        if m:
-		
 		candidates[y] = {}
 		candidates[y]['Value'] = word[x + 1]['Value']
 		candidates[y]['Confidence'] = word[x + 1]['Confidence']
@@ -232,6 +245,7 @@ Each word which falls within the proper proximity is stored in the context
 dictionary with the values: value, candidate ,word number, confidence,
 left, top, right, bottom, line number and same line as candidate.
 
+:o: prg unreadable, indentation errors
 
 ```python
  def set_context(self, candidates, word):
@@ -379,6 +393,8 @@ image file.
 
 ## Example
 
+:o: unclear, why not provide also an instalation section with requirements.txt
+
 ## Tools and Technology
 
 The tools and technology deployed for this project are going to be covered in 
@@ -518,7 +534,7 @@ $ pip install Tkinter
 
 ## Conclusion
 
-
+:o: missing
 
 ## Acknowledgement
 
