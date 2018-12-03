@@ -80,7 +80,7 @@ steps. The goal of preprocessing is to remove the faults that can later cause po
 To combat these defects, the preprocessor employs a common technique called smoothing. Smoothing serves to both fill in gaps 
 within a character (fragmentation correction) as well as thin the width of lines within a character (touching correction). 
 When properly applied, smoothing is successful in filling in pits and removing bumps from characters, which will increase the 
-likelihood of recognition in the following steps[@fa18-523-88-www-eikvilocr]. The preprocessor also invokes tasks for
+likelihood of recognition in the following steps[@fa18-523-88-www-charrecognition]. The preprocessor also invokes tasks for
 noise removal and character normalization. The noise removal task removes of specks, thin lines and other inconsistencies 
 through the analysis of height, size and density of a grouping of pixels. If the characteristics of a particular grouping 
 is not consistent with the characteristics found for a typical character, the grouping is deemed noise and removed as such. 
