@@ -466,11 +466,19 @@ The steps to configure are as follows:
 
 ![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/GUI.PNG "GUI")
 
+### Sample Images
+Provide in the project file under images are two invoice documents that were obtained online. These two invoice images are from 
+different companies and have different context and layouts.
+
+**INVOICE1:**
+![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/INVOICE1.PNG "GUI")
+
+**INVOICE2:**
+![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/INVOICE2.PNG "GUI")
+
 ### Sample Configuration - Invoice Number
 
-Provide in the project file under images are two invoice documents that were obtained online. These two invoice images are from 
-different companies and have different context and layouts. With these invoices in mind, we will configure the system to extract the i
-nvoice number from both using only one definition(configuration).
+With these invoices in mind, we will configure the system to extract the invoice number from both using only one definition(configuration).
 
 **GUI Screen with configuration:**
 
