@@ -426,6 +426,8 @@ image file.
 ## Example
 
 :o: unclear, why not provide also an instalation section with requirements.txt
+![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/GUI.PNG "GUI")
+
 
 ## Tools and Technology
 
