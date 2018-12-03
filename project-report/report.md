@@ -186,16 +186,6 @@ Create HOCR data:
         DATA = pytesseract.image_to_pdf_or_hocr(image, lang=None, config='hocr', nice=0, extension='hocr')
 ```
 
-
-### Transform HOCR Data
-
-Once the HOCR results are generated, we must transform the results
-into useable data for our extraction process. The first step is to target
-the ocrx_word data from the results and parser it into separate words.
-After this initial parsing is complete, we separate each individual data
-point within a dictionary object with the values: value, confidence, 
-left, top, right and bottom.
-
 Sample HOCR Output:
 
 ```xml
@@ -206,8 +196,17 @@ Sample HOCR Output:
 <span class="ocrx_word" id="word_1_23" title="bbox 912 364 980 378; x_wconf 96"><em>number:</em></span> 
 <span class="ocrx_word" id="word_1_24" title="bbox 1168 363 1198 378; x_wconf 44"><em>008</em></span>
 </span>
-
 ```
+
+### Transform HOCR Data
+
+Once the HOCR results are generated, we must transform the results
+into useable data for our extraction process. The first step is to target
+the ocrx_word data from the results and parser it into separate words.
+After this initial parsing is complete, we separate each individual data
+point within a dictionary object with the values: value, confidence, 
+left, top, right and bottom.
+
 
 Parsing HOCR results with Beautiful Soup:
 
