@@ -11,13 +11,13 @@ technologies:
   - url:
   - url:
 paper:
-  - title:
-    keyword: Data Extraction, OCR
+  - title: OCR Technology Overview 
+    keyword: OCR, Optical Character Recognition, Computer Vision
     url: https://github.com/cloudmesh-community/fa18-523-88/blob/master/paper/paper.md
     group: fa18-523-88
 project: 
-  - title: 
-    keyword: Data Extraction, OCR
+  - title: OCR Extraction Implementation with Tesseract
+    keyword: Data Extraction, OCR, Tesseract
     url: https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/report.md
     group: fa18-523-88
     code: https://github.com/cloudmesh-community/fa18-523-88/tree/master/project-code
