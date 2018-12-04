@@ -465,7 +465,9 @@ The steps to configure are as follows:
 
 **GUI Screen:**
 
-![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/GUI.PNG "GUI")
+As seen in +@fig:88-gui  ....
+
+![alt text](images/GUI.PNG){#fig:88-gui}
 
 ### Sample Images
 Provide in the project file under images are two invoice documents that were obtained online. These two invoice images are from 
@@ -473,11 +475,15 @@ different companies and have different context and layouts.
 
 **INVOICE1:**
 
-![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/1-INVOICE.PNG "GUI")
+:o: fix label and caption, see previous image
+
+![alt text](images/1-INVOICE.PNG)
 
 **INVOICE2:**
 
-![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/2-INVOICE.PNG "GUI")
+:o: fix label and caption, see previous image
+
+![alt text](images/2-INVOICE.PNG)
 
 ### Sample Configuration - Invoice Number
 
@@ -485,7 +491,9 @@ With these invoices in mind, we will configure the system to extract the invoice
 
 **GUI Screen with configuration:**
 
-![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/GUI_INVOICENUMBER.PNG "GUI Invoice Number")
+:o: fix label and caption, see previous image
+
+![alt text](images/GUI_INVOICENUMBER.PNG "GUI Invoice Number")
 
 **Output for Invoice-1:**
 ```
@@ -522,7 +530,9 @@ context(Subtotal vs Total), this example shows the power of the context engine.
 
 **GUI Screen with configuration:**
 
-![alt text](https://github.com/cloudmesh-community/fa18-523-88/blob/master/project-report/images/GUI_TOTAL.PNG "GUI Total")
+![alt text](images/GUI_TOTAL.PNG)
+
+:o: fix GUI Total
 
 **Output for Invoice-1:**
 ```
