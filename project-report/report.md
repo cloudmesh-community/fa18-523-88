@@ -453,7 +453,7 @@ The steps to configure are as follows:
     - When the user presses the run button, they will be prompted to select an image to be processed. Once complete, a prompt will 
     appear and a results text file will have been generated in the same directory as the .py script.
 
-Sample of a GUI Screen +@fig:88-gui:
++@fig:88-gui This is an example of the GUI screen.
 
 ![alt text](images/GUI.PNG){#fig:88-gui}
 
@@ -461,19 +461,21 @@ Sample of a GUI Screen +@fig:88-gui:
 Provide in the project file under images are two invoice documents that were obtained online. These two invoice images are from 
 different companies and have different context and layouts.
 
-First Invoice Image +@fig:88-1Invoice:
+
++@fig:88-1Invoice This is the first Invoice image.
 
 ![alt text](images/1-INVOICE.PNG){#fig:88-1Invoice}
 
-Second Invoice Image +@fig:88-2Invoice:
++@fig:88-2Invoice This is the second Invoice image.
 
 ![alt text](images/2-INVOICE.PNG){#fig:88-2Invoice}
 
 ### Sample Configuration - Invoice Number
 
-With these invoices in mind, we will configure the system to extract the invoice number from both using only one definition(configuration).
+With these invoices in mind, we will configure the system to extract the invoice number from both using only one 
+definition(configuration).
 
-GUI Screen with configuration +@fig:88-guiinvoicenumber:
++@fig:88-guiinvoicenumber This is a sample configuration for invoice number.
 
 ![alt text](images/GUI_INVOICENUMBER.PNG){#fig:88-guiinvoicenumber}
 
@@ -510,7 +512,7 @@ ALL CANDIDATES:
 With the same images, we can also configure the software to extract the total amount. With various amounts on the page as well as shared 
 context(Subtotal vs Total), this example shows the power of the context engine.
 
-GUI Screen with configuration +@fig:88-guitotal:
++@fig:88-guitotal This is a sample configuration for total.
 
 ![alt text](images/GUI_TOTAL.PNG){#fig:88-guitotal}
 
