@@ -516,7 +516,7 @@ context(Subtotal vs Total), this example shows the power of the context engine.
 
 GUI Screen with configuration +@fig:88-guitotal:
 
-![alt text](images/GUI_total.PNG){#fig:88-guitotal}
+![alt text](images/GUI_TOTAL.PNG){#fig:88-guitotal}
 
 
 **Output for Invoice-1:**
