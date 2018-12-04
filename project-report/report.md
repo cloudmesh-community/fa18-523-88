@@ -17,10 +17,6 @@ Keywords: OCR, Tesseract, Python, Computer Vision
 
 ## Abstract
 
-:o: The main purpose is to create a simple 
-OCR extraction implementation which is able to extract 
-key metadata from documents. 
-
 The focus is to create an extraction engine that will work 
 well for semi-structured and unstructured documents.  As the volume 
 of these documents are ever increasing, organizations are tasked with 
