@@ -236,8 +236,6 @@ left, top, right and bottom.
 
 **Finding candidates:**
 
-:o: indentation errors
-
 ```python
 def find_candidates(self, RE_ATT):
     y = 1
@@ -267,7 +265,7 @@ Each word which falls within the proper proximity is stored in the context
 dictionary with the values: value, candidate ,word number, confidence,
 left, top, right, bottom, line number and same line as candidate.
 
-:o: prg unreadable, indentation errors
+
 **Set Context:**
 
 ```python
@@ -431,8 +429,6 @@ image file.
 ```
 
 ## Example
-
-:o: unclear, why not provide also an instalation section with requirements.txt
 
 ### Tkinter GUI
 Provided with this extraction engine is a simple GUI that allows the user to input the various data points
