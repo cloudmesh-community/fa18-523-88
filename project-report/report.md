@@ -24,10 +24,11 @@ key metadata from documents.
 The focus is to create an extraction engine that will work 
 well for semi-structured and unstructured documents.  As the volume 
 of these documents are ever increasing, organizations are tasked with 
-storing and organizing these documents.  An OCR tool that enables these  
+storing and organizing these documents.An OCR tool that enables these 
 organizations to extract valuable information from these documents is 
 the first step in being able to analyze the data that is currently locked 
 within these documents.
+
 :o: no explenation provided how this relates to buig data.
 
 To accomplish this, Google's Tesseract OCR Engine is leveraged to 
