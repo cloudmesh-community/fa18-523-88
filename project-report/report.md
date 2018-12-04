@@ -13,8 +13,6 @@ Keywords: OCR, Tesseract, Python, Computer Vision
           
 ---
 
-:o: as pointed out previously on piazza, remove the word *project* or *report* from your report. simply sauy We
-
 ## Abstract
 
 The focus is to create an extraction engine that will work 
@@ -47,8 +45,6 @@ downstream processes and reporting. Documents fall into three categories:
 structured documents, semi-structured documents and unstructured documents. 
 
 *Gartner, a leading technology analysis firm, has stated the following:*
-
-:o: use of non ascii characters please do not just paste and coppy from word. Word produces dirty text for markdown. Previously mentioned in piazza FAQ.
 
 > "...the amount of data stored in companies will increase by 800 percent by 
 > 2018, 80 percent of which would include unstructured data that are harder 
@@ -122,8 +118,6 @@ up is performed to create a bitonal image and to remove any noise that
 may be present. This process consists of three steps; standardizing 
 image DPI, smoothing the image and removing noise from the 
 image [@fa18-523-88-www-imagethresholding].
-
-:o: spaces before brackets
 
 **Standarizing Image DPI to 300 DPI:**
 
@@ -463,9 +457,7 @@ The steps to configure are as follows:
     - When the user presses the run button, they will be prompted to select an image to be processed. Once complete, a prompt will 
     appear and a results text file will have been generated in the same directory as the .py script.
 
-**GUI Screen:**
-
-As seen in +@fig:88-gui  ....
+Sample of a GUI Screen +@fig:88-gui:
 
 ![alt text](images/GUI.PNG){#fig:88-gui}
 
@@ -473,27 +465,21 @@ As seen in +@fig:88-gui  ....
 Provide in the project file under images are two invoice documents that were obtained online. These two invoice images are from 
 different companies and have different context and layouts.
 
-**INVOICE1:**
+First Invoice Image +@fig:88-1Invoice:
 
-:o: fix label and caption, see previous image
+![alt text](images/1-INVOICE.PNG){#fig:88-1Invoice}
 
-![alt text](images/1-INVOICE.PNG)
+Second Invoice Image +@fig:88-2Invoice:
 
-**INVOICE2:**
-
-:o: fix label and caption, see previous image
-
-![alt text](images/2-INVOICE.PNG)
+![alt text](images/2-INVOICE.PNG){#fig:88-2Invoice}
 
 ### Sample Configuration - Invoice Number
 
 With these invoices in mind, we will configure the system to extract the invoice number from both using only one definition(configuration).
 
-**GUI Screen with configuration:**
+GUI Screen with configuration +@fig:88-guiinvoicenumber:
 
-:o: fix label and caption, see previous image
-
-![alt text](images/GUI_INVOICENUMBER.PNG "GUI Invoice Number")
+![alt text](images/GUI_INVOICENUMBER.PNG){#fig:88-guiinvoicenumber}
 
 **Output for Invoice-1:**
 ```
@@ -528,11 +514,10 @@ ALL CANDIDATES:
 With the same images, we can also configure the software to extract the total amount. With various amounts on the page as well as shared 
 context(Subtotal vs Total), this example shows the power of the context engine.
 
-**GUI Screen with configuration:**
+GUI Screen with configuration +@fig:88-guitotal:
 
-![alt text](images/GUI_TOTAL.PNG)
+![alt text](images/GUI_Total.PNG){#fig:88-guitotal}
 
-:o: fix GUI Total
 
 **Output for Invoice-1:**
 ```
