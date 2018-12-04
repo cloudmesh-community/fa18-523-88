@@ -1,5 +1,3 @@
-
-
 from pytesseract import pytesseract
 from PIL import Image as IMG
 from fuzzywuzzy import fuzz
@@ -9,26 +7,33 @@ import tempfile
 import cv2
 import numpy as np
 
+
 try:
     from Tkinter import *
     from tkinter import filedialog
+    from tkinter import messagebox
     from ast import literal_eval
+
 except ImportError:
     from tkinter import *
     from tkinter import filedialog
+    from tkinter import messagebox
     from ast import literal_eval
+
+
+######GUI BUILD##########
 
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root, KEYWORD_STR, ABOVE, BELOW, LEFT, RIGHT, WEIGHT, REGEX_STR, SAMELINE_WEIGHT, KW_ATT, RE_ATT, word, candidates, context, groupcontext, results,BINARY_THREHOLD,fp
+    global val, w, root, KEYWORD_STR, ABOVE, BELOW, LEFT, RIGHT, WEIGHT, REGEX_STR, SAMELINE_WEIGHT, KW_ATT, RE_ATT, word, candidates, context, groupcontext, results, BINARY_THREHOLD, fp
     root = Tk()
     KEYWORD_STR = StringVar(root, value="")
     REGEX_STR = StringVar(root, value="")
-    ABOVE = StringVar(root, value="")
-    BELOW = StringVar(root, value="")
-    LEFT = StringVar(root, value="")
-    RIGHT = StringVar(root, value="")
+    ABOVE = StringVar(root, value=0.0)
+    BELOW = StringVar(root, value=0.0)
+    LEFT = StringVar(root, value=0.0)
+    RIGHT = StringVar(root, value=0.0)
     WEIGHT = StringVar(root, value=0.0)
     SAMELINE_WEIGHT = StringVar(root, value=0.0)
 
@@ -39,13 +44,8 @@ def vp_start_gui():
     groupcontext = {1: {'Value': '', 'Candidates': '', 'Word': '', 'Confidence': '', 'Left': '', 'Top': '', 'Right': '',
                         'Bottom': '', 'Line': '', 'SameLine': '', 'Weight': ''}}
     results = {'TEST': 0.0}
-    fp = ""
 
-    word.clear()
-    candidates.clear()
-    context.clear()
-    groupcontext.clear()
-    results.clear()
+    fp = ""
 
     RE_ATT = list()
     KW_ATT = dict()
@@ -278,7 +278,7 @@ class Extraction:
         self.Label_Weight.configure(foreground="#000000")
         self.Label_Weight.configure(highlightbackground="#d9d9d9")
         self.Label_Weight.configure(highlightcolor="black")
-        self.Label_Weight.configure(text='''Keyword Weight''')
+        self.Label_Weight.configure(text='''Keyword Weight Ratio''')
 
         self.Label_RegEx = Label(top)
         self.Label_RegEx.place(relx=0.02, rely=0.02, height=21, width=164)
@@ -323,7 +323,7 @@ class Extraction:
         self.Label_SameLine.configure(foreground="#000000")
         self.Label_SameLine.configure(highlightbackground="#d9d9d9")
         self.Label_SameLine.configure(highlightcolor="black")
-        self.Label_SameLine.configure(text='''Same Line Weight''')
+        self.Label_SameLine.configure(text='''Same Line Boost''')
 
         ###################ENTRY#########################################################
 
@@ -503,7 +503,6 @@ class Extraction:
             print("REGEX not in the list, cannot delete")
 
         REGEX_STR.set("")
-        print(RE_ATT)
 
     def select_Keyword(self, event):
         w = event.widget
@@ -539,29 +538,57 @@ class Extraction:
             SAMELINE_WEIGHT.set(KW_ATT[key][5])
 
     def Run(self):
+
+        #Select image file to be processed
         file_path_string = filedialog.askopenfilename()
-        print(file_path_string)
+
+        #Run selected image thru preprocessor for clean up
         image = processimage(file_path_string)
+
+        #Store file name to be used to generate output text file
         fp = file_path_string
-        fp = fp[fp.rfind('/')+1:]
+        fp = fp[fp.rfind('/') + 1:]
         fp = fp[:fp.find('.')]
-        print(fp)
+
+        #Clear all data before each run
+        word.clear()
+        candidates.clear()
+        context.clear()
+        groupcontext.clear()
+        results.clear()
+
+        #Send cleaned up image thru OCR process
         DATA = pytesseract.image_to_pdf_or_hocr(image, lang=None, config='hocr', nice=0, extension='hocr')
+
+        #Parse OCR Data, keeping only the word data
         soup = bs4.BeautifulSoup(DATA, 'html.parser')
         words = soup.find_all('span', class_='ocrx_word')
-        transform_hocr(self,words)
-        find_candidates(self,RE_ATT)
-        set_context(self,candidates,word)
-        print(context)
-        define_groupcontext(self,context)
-        weightcontext(self,KW_ATT)
-        outputresults(self,groupcontext,fp)
 
+        #Load HOCR into word dictionary objects
+        transform_hocr(self, words)
 
+        #Finding candidates based on regular expression provided by user
+        find_candidates(self, RE_ATT)
 
+        #Set context around each candidate found
+        set_context(self, candidates, word)
+
+        #Group context based on word sequence and line number
+        define_groupcontext(self, context)
+
+        #Score each candidate based on context found and context provided by user
+        weightcontext(self, KW_ATT)
+
+        #Output results to text file
+        outputresults(self, groupcontext, fp)
+
+        messagebox.showinfo("Output Generated", "Process Complete, please review output file.")
 
 def transform_hocr(self, words):
     # Convert HOCR to usable structure
+    # Storing all word variables into a word dictionary with the following data:
+    # value, confidence, positioning(left, top, right and bottom)
+
     for x in range(len(words)):
         word[int(words[x]['id'].split('_')[2])] = {}
         word[int(words[x]['id'].split('_')[2])]['Value'] = words[x].get_text()
@@ -572,7 +599,11 @@ def transform_hocr(self, words):
         word[int(words[x]['id'].split('_')[2])]['Bottom'] = words[x]['title'].split(';')[0].split(' ')[4]
 
 
+
 def find_candidates(self, RE_ATT):
+    # Looping thru each regular expression provided by user and identifying matches on the image
+    # Storing all candidates into the candidate dictionary with the following data:
+    # value, confidence, positioning(left, top, right and bottom)
     y = 1
     for z in RE_ATT:
 
@@ -588,21 +619,24 @@ def find_candidates(self, RE_ATT):
                 candidates[y]['Top'] = word[x + 1]['Top']
                 candidates[y]['Right'] = word[x + 1]['Right']
                 candidates[y]['Bottom'] = word[x + 1]['Bottom']
-                print(candidates[y])
+
                 y = y + 1
 
 
 def set_context(self, candidates, word):
+    # Looping thru each candidate and assigning context by using the search area provided by user
+    # Storing all context into the context dictionary with the following data:
+    # value, confidence, positioning(left, top, right and bottom), line and same line as candidate
     line = 1
     z = 1
     for x in range(len(candidates)):
 
         for y in range(len(word)):
 
-            if (int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 100) and (
-                    int(word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 20) and \
-                    (int(word[y + 1]['Right']) > int(candidates[x + 1]['Left']) - 700) and (
-                    int(word[y + 1]['Right']) < int(candidates[x + 1]['Left']) + 20):
+            if (int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - float(ABOVE.get())) and \
+                    (int(word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + (float(BELOW.get())) +10.0) and \
+                    (int(word[y + 1]['Right']) > int(candidates[x + 1]['Left']) - float(LEFT.get())) and \
+                    (int(word[y + 1]['Right']) < int(candidates[x + 1]['Left']) + (float(RIGHT.get()) + 10.0)):
 
                 context[z] = {}
                 context[z]['Value'] = word[y + 1]['Value']
@@ -622,8 +656,8 @@ def set_context(self, candidates, word):
                     line = line + 1
                     context[z]['Line'] = line
 
-                if int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 15 and int(
-                        word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 15:
+                if int(word[y + 1]['Bottom']) > int(candidates[x + 1]['Bottom']) - 15 and \
+                        int(word[y + 1]['Bottom']) < int(candidates[x + 1]['Bottom']) + 15:
                     context[z]['SameLine'] = "1"
                 else:
                     context[z]['SameLine'] = "0"
@@ -632,8 +666,10 @@ def set_context(self, candidates, word):
 
 
 def define_groupcontext(self, context):
-    # TRANSFORM CONTEXT INTO GROUPED CONTEXT
-    # Context words that are on the same line and in sequence are grouped together
+    # Looping thru the context and grouping the context based on proximity and word sequence
+    #  Storing all grouped context is stored in the group context dictionary with the following data:
+    # value, confidence, word, weight, positioning(left, top, right and bottom), and same line as candidate
+
     z = 1
     for x in range(len(context)):
 
@@ -665,14 +701,13 @@ def define_groupcontext(self, context):
             groupcontext[z]['Value'] = context[x + 1]['Value']
             groupcontext[z]['Word'] = context[x + 1]['Word']
             groupcontext[z]['Candidates'] = context[x + 1]['Candidates']
-            groupcontext[z]['Weight'] = '0'
+            groupcontext[z]['Weight'] = 0
             groupcontext[z]['Confidence'] = context[x + 1]['Confidence']
             groupcontext[z]['Left'] = context[x + 1]['Left']
             groupcontext[z]['Top'] = context[x + 1]['Top']
             groupcontext[z]['Right'] = context[x + 1]['Right']
             groupcontext[z]['Bottom'] = context[x + 1]['Bottom']
             groupcontext[z]['SameLine'] = context[x + 1]['SameLine']
-
 
 
 def weightcontext(self, KW_ATT):
@@ -682,8 +717,6 @@ def weightcontext(self, KW_ATT):
 
         for x in range(len(groupcontext)):
 
-            groupcontext[x + 1]['Weight'] = 0
-
             if int(groupcontext[x + 1]['Weight']) < fuzz.WRatio(groupcontext[x + 1]['Value'], z):
                 groupcontext[x + 1]['Weight'] = float(fuzz.WRatio(groupcontext[x + 1]['Value'], z)) * float(
                     value[0]) / 100
@@ -692,7 +725,7 @@ def weightcontext(self, KW_ATT):
                     groupcontext[x + 1]['Weight'] = groupcontext[x + 1]['Weight'] + float(value[5])
 
 
-def outputresults(self, groupcontext,fp):
+def outputresults(self, groupcontext, fp):
     # Output Results
     for x in range(len(groupcontext)):
 
@@ -704,8 +737,7 @@ def outputresults(self, groupcontext,fp):
         else:
             results[groupcontext[x + 1]['Candidates']] = groupcontext[x + 1]['Weight']
 
-
-    if(len(results.keys()) == 0):
+    if (len(results.keys()) == 0):
 
         f = open(fp + '.txt', 'w')
         f.write("Could not find any valid candidates")
@@ -713,10 +745,16 @@ def outputresults(self, groupcontext,fp):
 
     else:
         sorted_by_value = sorted(results.items(), key=lambda kv: kv[1], reverse=True)
-        f = open(fp +'.txt', 'w')
+        f = open(fp + '.txt', 'w')
         f.write("WINNING CANDIDATE (CANDIDATE , WEIGHT): " + str(sorted_by_value[0]) + "\n")
-        f.write("ALL CANDIDATES: " + str(sorted_by_value))
+        f.write("ALL CANDIDATES: \n")
+
+        for x in sorted_by_value[:]:
+            print(x)
+            f.write(str(x) + "\n")
+
         f.close()
+
 
 def processimage(path):
     # TODO : Implement using opencv
