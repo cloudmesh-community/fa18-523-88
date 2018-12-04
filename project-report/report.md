@@ -724,7 +724,11 @@ $ pip install Tkinter
 
 ## Conclusion
 
-:o: missing
+The context based extraction approach that was implemented offers an excellent 
+way forward when attempting to gain insight into the data that is stored within 
+semi-structured and unstructured documents. Improvements can be made in the future 
+with machine learning techniques to move away from user-defined context 
+and instead utilize training sets to provide the context necessary. 
 
 ## Acknowledgement
 
