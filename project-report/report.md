@@ -166,8 +166,6 @@ in a XML structure.
 
 **Create HOCR data:**
 
-:o: its easy to bring thsi to a smaller format that fits in 
-
 ```python
     def Run(self):
         DATA = pytesseract.image_to_pdf_or_hocr(image, lang=None, config='hocr', nice=0, extension='hocr')
@@ -204,10 +202,6 @@ left, top, right and bottom.
 ```
 
 **Creating word data structure:**
-
-:o: this prg is a non valid python prg due to indentation errors
-
-:o: why not use variables or functions to make it more readbale
 
 ```python
 def transform_hocr(self, words):
