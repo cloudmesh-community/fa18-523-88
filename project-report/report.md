@@ -22,9 +22,6 @@ storing and organizing these documents.An OCR tool that enables these
 organizations to extract valuable information from these documents is 
 the first step in being able to analyze the data that is currently locked 
 within these documents.
-
-:o: no explenation provided how this relates to buig data.
-
 To accomplish this, Google's Tesseract OCR Engine is leveraged to 
 provide full-page OCR data. The goal is to have a configurable 
 extraction engine that allows users to pin-point the meta-data 
