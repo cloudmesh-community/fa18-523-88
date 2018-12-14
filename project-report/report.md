@@ -1,4 +1,4 @@
-# OCR Extraction Implementation with Tesseract :hand: fa18-523-88
+# OCR Extraction Implementation with Tesseract
 
 | Joao Paulo Leite
 | jleite@iu.edu
