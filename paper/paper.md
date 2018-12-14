@@ -1,4 +1,4 @@
-# OCR Technology Overview :hand: fa18-523-88
+# OCR Technology Overview :wave:
 
 | Joao Paulo Leite
 | jleite@iu.edu
